@@ -16,6 +16,7 @@ namespace LiveSplit.BfBBRehydrated
     public class Component : IComponent
     {
         private LiveSplitState _state;
+        private RehydratedSettings _settings;
 
         private Process _game;
         private bool _isHooked = false;
@@ -25,6 +26,7 @@ namespace LiveSplit.BfBBRehydrated
         public Component(LiveSplitState state)
         {
             _state = state;
+            _settings = new RehydratedSettings(state);
         }
         
         public void Dispose() {}
@@ -33,17 +35,17 @@ namespace LiveSplit.BfBBRehydrated
 
         public Control GetSettingsControl(LayoutMode mode)
         {
-            return new Control("Control");
+            return _settings;
         }
 
         public XmlNode GetSettings(XmlDocument document)
         {
-            return new XmlDocument();
+            return _settings.UpdateSettings(document);
         }
 
         public void SetSettings(XmlNode settings)
         {
-            
+            _settings.InitializeSettings(settings);
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)

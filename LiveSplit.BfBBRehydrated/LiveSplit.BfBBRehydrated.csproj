@@ -58,6 +58,17 @@
         <Compile Include="RehydratedAutosplitter.cs" />
         <Compile Include="RehydratedAutosplitterFactory.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="RehydratedSettings.cs">
+          <SubType>UserControl</SubType>
+        </Compile>
+        <Compile Include="RehydratedSettings.Designer.cs">
+          <DependentUpon>RehydratedSettings.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="RehydratedSettings.resx">
+        <DependentUpon>RehydratedSettings.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
