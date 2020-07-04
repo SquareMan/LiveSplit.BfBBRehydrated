@@ -20,7 +20,8 @@ namespace LiveSplit.BfBBRehydrated
         private Process _game;
         private bool _isHooked = false;
         private readonly DeepPointer _isLoadingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0331A650, 0x20, 0x1D0);
-        
+        private TextComponent _debugText;
+
         public Component(LiveSplitState state)
         {
             _state = state;
@@ -47,35 +48,55 @@ namespace LiveSplit.BfBBRehydrated
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            // Logic for hooking the game process (Move to another method/class?)
-            if (_game == null)
+            HookProcess();
+
+            if (_isHooked)
             {
-                _isHooked = false;
+                // Pause timer when loading
+                state.IsGameTimePaused = _isLoadingDP.Deref<bool>(_game);
             }
-            else if (_game.HasExited)
+            
+            UpdateDebug();
+        }
+
+        private void HookProcess()
+        {
+            _isHooked = _game != null && !_game.HasExited;
+            if (!_isHooked)
             {
-                _isHooked = false;
+                Process[] processes = Process.GetProcessesByName("Pineapple-Win64-Shipping");
+                
+                if (processes.Length <= 0)
+                    return;
+                
+                _game = processes.First();
+                _isHooked = true;
+            }
+        }
+        
+
+        private void UpdateDebug()
+        {
+            if(_debugText == null)
+            {
+                foreach (var layoutComponent in _state.Layout.LayoutComponents)
+                {
+                    if (layoutComponent.Component is TextComponent text)
+                    {
+                        if (text.Settings.Text1.IndexOf("DEBUG", StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            _debugText = text;
+                            break;
+                        }
+                    }
+                }
             }
             else
             {
-                _isHooked = _isLoadingDP.Deref<bool>(_game, out var ignore);
+                _debugText.Settings.Text1 = $"IsHooked: {_isHooked.ToString()}";
             }
-
-            if (!_isHooked)
-            {
-                _game = Process.GetProcessesByName("Pineapple-Win64-Shipping").First();
-                if (_game != null)
-                {
-                    _isHooked = _isLoadingDP.Deref<bool>(_game, out var ignore);
-                }
-            }
-
-            if (!_isHooked) return;
-            
-            // Pause timer when loading
-            state.IsGameTimePaused = _isLoadingDP.Deref<bool>(_game);
-
         }
+        
 
         public string ComponentName => Factory.AutosplitterName;
         public float HorizontalWidth => 0;

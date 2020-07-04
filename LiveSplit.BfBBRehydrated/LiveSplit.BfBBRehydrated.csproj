@@ -38,6 +38,9 @@
         <Reference Include="LiveSplit.Plugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Users\Owner\Documents\Livesplit\LiveSplit.Plugin.dll</HintPath>
         </Reference>
+        <Reference Include="LiveSplit.Text, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>C:\Users\Owner\Documents\Livesplit\Components\LiveSplit.Text.dll</HintPath>
+        </Reference>
         <Reference Include="LiveSplit.View, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Users\Owner\Documents\Livesplit\LiveSplit.View.dll</HintPath>
         </Reference>
