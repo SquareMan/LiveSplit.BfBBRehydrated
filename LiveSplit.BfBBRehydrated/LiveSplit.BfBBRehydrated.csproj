@@ -55,18 +55,18 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="RehydratedAutosplitter.cs" />
-        <Compile Include="RehydratedAutosplitterFactory.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="RehydratedSettings.cs">
+        <Compile Include="UI\RehydratedAutosplitter.cs" />
+        <Compile Include="UI\RehydratedAutosplitterFactory.cs" />
+        <Compile Include="UI\RehydratedSettings.cs">
           <SubType>UserControl</SubType>
         </Compile>
-        <Compile Include="RehydratedSettings.Designer.cs">
+        <Compile Include="UI\RehydratedSettings.Designer.cs">
           <DependentUpon>RehydratedSettings.cs</DependentUpon>
         </Compile>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Include="RehydratedSettings.resx">
+      <EmbeddedResource Include="UI\RehydratedSettings.resx">
         <DependentUpon>RehydratedSettings.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>

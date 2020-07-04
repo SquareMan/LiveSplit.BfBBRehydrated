@@ -1,17 +1,16 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Xml;
-using LiveSplit.Model;
-using LiveSplit.UI;
-using LiveSplit.UI.Components;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml;
 using LiveSplit.ComponentUtil;
+using LiveSplit.Model;
+using LiveSplit.UI;
+using LiveSplit.UI.Components;
 
-namespace LiveSplit.BfBBRehydrated
+namespace LiveSplit.BfBBRehydrated.UI
 {
     public class Component : IComponent
     {

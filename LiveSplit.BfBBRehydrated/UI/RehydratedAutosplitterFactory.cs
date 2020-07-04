@@ -2,7 +2,7 @@
 using LiveSplit.Model;
 using LiveSplit.UI.Components;
 
-namespace LiveSplit.BfBBRehydrated
+namespace LiveSplit.BfBBRehydrated.UI
 {
     public class Factory : IComponentFactory
     {

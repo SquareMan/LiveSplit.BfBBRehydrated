@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Xml;
 using LiveSplit.Model;
 
-namespace LiveSplit.BfBBRehydrated
+namespace LiveSplit.BfBBRehydrated.UI
 {
     public partial class RehydratedSettings : UserControl
     {

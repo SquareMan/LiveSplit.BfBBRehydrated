@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using System.Windows.Forms;
 
-namespace LiveSplit.BfBBRehydrated
+namespace LiveSplit.BfBBRehydrated.UI
 {
     partial class RehydratedSettings
     {
