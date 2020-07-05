@@ -51,9 +51,9 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.flowLayoutSplits.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutSplits.AutoScroll = true;
             this.flowLayoutSplits.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutSplits.Location = new System.Drawing.Point(0, 33);
+            this.flowLayoutSplits.Location = new System.Drawing.Point(0, 26);
             this.flowLayoutSplits.Name = "flowLayoutSplits";
-            this.flowLayoutSplits.Size = new System.Drawing.Size(233, 249);
+            this.flowLayoutSplits.Size = new System.Drawing.Size(233, 200);
             this.flowLayoutSplits.TabIndex = 0;
             this.flowLayoutSplits.WrapContents = false;
             // 
@@ -65,7 +65,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.Controls.Add(this.doThing);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "RehydratedSettings";
-            this.Size = new System.Drawing.Size(233, 249);
+            this.Size = new System.Drawing.Size(233, 226);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
