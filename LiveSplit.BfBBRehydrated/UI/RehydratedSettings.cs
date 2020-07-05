@@ -13,6 +13,8 @@ namespace LiveSplit.BfBBRehydrated.UI
             InitializeComponent();
 
             _state = state;
+            
+            // Cause this form to fill it's container in the settings menu
             Dock = DockStyle.Fill;
         }
 
@@ -40,6 +42,8 @@ namespace LiveSplit.BfBBRehydrated.UI
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
 
+            // Create an XML node for each of the user's splits
+            // TODO: Store splitting logic settings here instead of split name
             foreach(ISegment segment in _state.Run)
             {
                 XmlElement xmlSplit = document.CreateElement("Split");

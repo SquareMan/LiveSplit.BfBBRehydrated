@@ -37,11 +37,20 @@ namespace LiveSplit.BfBBRehydrated.UI
             return _settings;
         }
 
+        /// <summary>
+        /// Called continuously by LiveSplit
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
         public XmlNode GetSettings(XmlDocument document)
         {
             return _settings.UpdateSettings(document);
         }
 
+        /// <summary>
+        /// Called by LiveSplit on startup and after closing the Edit Layout menu (even if nothing is changed)
+        /// </summary>
+        /// <param name="settings"></param>
         public void SetSettings(XmlNode settings)
         {
             _settings.InitializeSettings(settings);
@@ -60,6 +69,9 @@ namespace LiveSplit.BfBBRehydrated.UI
             UpdateDebug();
         }
 
+        /// <summary>
+        /// Attempt to hook the game process (if not already hooked)
+        /// </summary>
         private void HookProcess()
         {
             _isHooked = _game != null && !_game.HasExited;
@@ -75,7 +87,9 @@ namespace LiveSplit.BfBBRehydrated.UI
             }
         }
         
-
+        /// <summary>
+        /// Find Debug text component to write output to it.
+        /// </summary>
         private void UpdateDebug()
         {
             if(_debugText == null)
