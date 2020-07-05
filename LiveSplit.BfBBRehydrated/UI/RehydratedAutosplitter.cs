@@ -44,7 +44,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         /// <returns></returns>
         public XmlNode GetSettings(XmlDocument document)
         {
-            return _settings.UpdateSettings(document);
+            return _settings.GetSettings(document);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         /// <param name="settings"></param>
         public void SetSettings(XmlNode settings)
         {
-            _settings.InitializeSettings(settings);
+            _settings.SetSettings(settings);
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)

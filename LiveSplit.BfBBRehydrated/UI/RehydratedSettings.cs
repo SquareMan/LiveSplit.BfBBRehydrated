@@ -20,7 +20,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             Dock = DockStyle.Fill;
         }
         
-        public XmlNode UpdateSettings(XmlDocument document)
+        public XmlNode GetSettings(XmlDocument document)
         {
             XmlElement xmlSettings = document.CreateElement("Settings");
 
@@ -39,7 +39,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             return xmlSettings;
         }
 
-        public void InitializeSettings(XmlNode node)
+        public void SetSettings(XmlNode node)
         {
             var doThingChecked = SettingsHelper.ParseBool(node["CheckTest"]);
             doThing.Checked = doThingChecked;
@@ -55,8 +55,12 @@ namespace LiveSplit.BfBBRehydrated.UI
                     flowLayoutSplits.Controls.Add(splitBox);
                 }
             }
-
             flowLayoutSplits.ResumeLayout(true);
+        }
+
+        private void UpdateSplitControls()
+        {
+            
         }
     }
 }
