@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Xml;
+using LiveSplit.BfBBRehydrated.Logic;
 using LiveSplit.Model;
-using LiveSplit.Options;
 using LiveSplit.UI;
 
 namespace LiveSplit.BfBBRehydrated.UI
@@ -34,7 +34,11 @@ namespace LiveSplit.BfBBRehydrated.UI
             // TODO: Store splitting logic settings here instead of split name
             foreach(ISegment segment in _state.Run)
             {
-                SettingsHelper.CreateSetting(document, xmlSplits, "Split", segment.Name);
+                XmlElement xmlSplit = document.CreateElement("Split");
+                xmlSplits.AppendChild(xmlSplit);
+                
+                SettingsHelper.CreateSetting(document, xmlSplit, "Name", segment.Name);
+                SettingsHelper.CreateSetting(document, xmlSplit, "SplitType", SplitType.Manual);
             }
 
             return xmlSettings;
@@ -64,10 +68,10 @@ namespace LiveSplit.BfBBRehydrated.UI
             
             foreach (ISegment segment in _state.Run)
             {
-                TextBox splitBox = new TextBox {Text = segment.Name};
+                SplitSettings splitBox = new SplitSettings(segment.Name);
                 flowLayoutSplits.Controls.Add(splitBox);
             }
-                
+            
             flowLayoutSplits.ResumeLayout(true);
         }
 

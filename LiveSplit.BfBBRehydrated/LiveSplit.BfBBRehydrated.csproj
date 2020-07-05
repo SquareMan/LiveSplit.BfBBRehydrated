@@ -55,6 +55,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Logic\Split.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="UI\RehydratedAutosplitter.cs" />
         <Compile Include="UI\RehydratedAutosplitterFactory.cs" />
@@ -64,10 +65,19 @@
         <Compile Include="UI\RehydratedSettings.Designer.cs">
           <DependentUpon>RehydratedSettings.cs</DependentUpon>
         </Compile>
+        <Compile Include="UI\SplitSettings.cs">
+          <SubType>UserControl</SubType>
+        </Compile>
+        <Compile Include="UI\SplitSettings.Designer.cs">
+          <DependentUpon>SplitSettings.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="UI\RehydratedSettings.resx">
         <DependentUpon>RehydratedSettings.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Include="UI\SplitSettings.resx">
+        <DependentUpon>SplitSettings.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
