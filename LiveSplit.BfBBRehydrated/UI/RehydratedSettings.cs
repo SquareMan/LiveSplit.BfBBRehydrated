@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Xml;
 using LiveSplit.Model;
 using LiveSplit.Options;
@@ -44,23 +45,35 @@ namespace LiveSplit.BfBBRehydrated.UI
             var doThingChecked = SettingsHelper.ParseBool(node["CheckTest"]);
             doThing.Checked = doThingChecked;
 
-            flowLayoutSplits.SuspendLayout();
-            flowLayoutSplits.Controls.Clear();
             XmlNodeList splitNodes = node.SelectNodes(".//Splits/Split");
             if (splitNodes != null)
             {
                 foreach (XmlElement splitNode in splitNodes)
                 {
-                    TextBox splitBox = new TextBox {Text = SettingsHelper.ParseString(splitNode)};
-                    flowLayoutSplits.Controls.Add(splitBox);
+                    //TODO: Deserialize split logic once implemented
                 }
             }
-            flowLayoutSplits.ResumeLayout(true);
+            
+            UpdateSplitControls();
         }
 
         private void UpdateSplitControls()
         {
+            flowLayoutSplits.SuspendLayout();
+            flowLayoutSplits.Controls.Clear();
             
+            foreach (ISegment segment in _state.Run)
+            {
+                TextBox splitBox = new TextBox {Text = segment.Name};
+                flowLayoutSplits.Controls.Add(splitBox);
+            }
+                
+            flowLayoutSplits.ResumeLayout(true);
+        }
+
+        private void RehydratedSettings_Load(object sender, EventArgs e)
+        {
+            UpdateSplitControls();
         }
     }
 }

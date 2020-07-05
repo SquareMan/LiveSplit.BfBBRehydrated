@@ -66,6 +66,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "RehydratedSettings";
             this.Size = new System.Drawing.Size(233, 226);
+            this.Load += new System.EventHandler(this.RehydratedSettings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
