@@ -11,6 +11,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         private LiveSplitState _state;
         private TimerModel _model;
 
+        private int _currentSplitIndex = -1;
         private Memory.MemoryState _oldMemoryState;
         private Memory.MemoryState _currentMemoryState;
 
@@ -18,6 +19,12 @@ namespace LiveSplit.BfBBRehydrated.Logic
         {
             _state = state;
             _model = new TimerModel() {CurrentState = _state};
+
+            _state.OnStart += OnStart;
+            _state.OnSplit += OnSplit;
+            _state.OnSkipSplit += OnSkipSplit;
+            _state.OnUndoSplit += OnUndoSplit;
+            _state.OnReset += OnReset;
         }
 
         public void Update()
@@ -29,45 +36,80 @@ namespace LiveSplit.BfBBRehydrated.Logic
             switch (_state.CurrentPhase)
             {
                 case TimerPhase.NotRunning:
-                    TryStart();
+                    if (ShouldStart())
+                    {
+                        _model.Start();
+                    }
                     break;
                 case TimerPhase.Running:
                     // Pause timer when loading
                     _state.IsGameTimePaused = Memory.IsLoading;
-                    
-                    TrySplit();
-                    TryReset();
+
+                    if (ShouldSplit())
+                    {
+                        _model.Split();
+                    }
+                    else if (ShouldReset())
+                    {
+                        _model.Reset();
+                    }
                     break;
             }
         }
 
-        private bool TryStart()
+        private bool ShouldStart()
         {
-            if (_oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
-                _currentMemoryState.CurrentMap == Map.IntroCutscene)
+            return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
+                   _currentMemoryState.CurrentMap == Map.IntroCutscene;
+        }
+
+        private bool ShouldSplit()
+        {
+            Split currentSplit = AutosplitterSettings.Autosplits[_currentSplitIndex];
+
+            switch (currentSplit.Type)
             {
-                _model.Start();
-                _state.SetGameTime(TimeSpan.FromSeconds(StartOffset));
-                return true;
+                case SplitType.GameEnd:
+                    return _oldMemoryState.SpatulaCount != _currentMemoryState.SpatulaCount &&
+                           _currentMemoryState.CurrentMap == Map.ChumBucketBrain;
+                case SplitType.LevelTransition:
+                    return _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap;
+                case SplitType.LoadScreen:
+                    return !_oldMemoryState.IsLoading && _currentMemoryState.IsLoading;
             }
-            
             return false;
         }
 
-        private bool TrySplit()
+        private bool ShouldReset()
         {
-            return false;
+            return _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
+                   _currentMemoryState.CurrentMap == Map.IntroCutscene;
         }
 
-        private bool TryReset()
+        private void OnStart(object obj, EventArgs e)
         {
-            if (_oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
-                _currentMemoryState.CurrentMap == Map.IntroCutscene)
-            {
-                _model.Reset();
-                return true;
-            }
-            return false;
+            _state.SetGameTime(TimeSpan.FromSeconds(StartOffset));
+            _currentSplitIndex = 0;
+        }
+
+        private void OnSplit(object obj, EventArgs e)
+        {
+            _currentSplitIndex++;
+        }
+
+        private void OnSkipSplit(object sender, EventArgs e)
+        {
+            _currentSplitIndex++;
+        }
+
+        private void OnUndoSplit(object sender, EventArgs e)
+        {
+            _currentSplitIndex--;
+        }
+
+        private void OnReset(object obj, TimerPhase phase)
+        {
+            _currentSplitIndex = -1;
         }
         
     }
