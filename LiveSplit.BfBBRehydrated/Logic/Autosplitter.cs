@@ -59,7 +59,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         private bool ShouldStart()
         {
             return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
-                   _currentMemoryState.CurrentMap == Map.IntroCutscene;
+                   _currentMemoryState.Level == Level.IntroCutscene;
         }
 
         private bool ShouldSplit()
@@ -70,9 +70,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
             {
                 case SplitType.GameEnd:
                     return _oldMemoryState.SpatulaCount != _currentMemoryState.SpatulaCount &&
-                           _currentMemoryState.CurrentMap == Map.ChumBucketBrain;
+                           _currentMemoryState.Level == Level.ChumBucketBrain;
                 case SplitType.LevelTransition:
-                    return _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap;
+                    return _oldMemoryState.Level != _currentMemoryState.Level;
                 case SplitType.LoadScreen:
                     return !_oldMemoryState.IsLoading && _currentMemoryState.IsLoading;
             }
@@ -84,13 +84,13 @@ namespace LiveSplit.BfBBRehydrated.Logic
             switch (AutosplitterSettings.ResetPreference)
             {
                 case ResetPreference.NewGame:
-                    return _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
-                           _currentMemoryState.CurrentMap == Map.IntroCutscene;
+                    return _oldMemoryState.Level != _currentMemoryState.Level &&
+                           _currentMemoryState.Level == Level.IntroCutscene;
                 case ResetPreference.MainMenu:
                     // Map.Any only appears in memory when the game is not hooked (i.e. after a crash)
-                    return _oldMemoryState.CurrentMap != Map.Any &&
-                           _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
-                           _currentMemoryState.CurrentMap == Map.MainMenu;
+                    return _oldMemoryState.Level != Level.Any &&
+                           _oldMemoryState.Level != _currentMemoryState.Level &&
+                           _currentMemoryState.Level == Level.MainMenu;
             }
 
             return false;

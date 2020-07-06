@@ -57,7 +57,7 @@
     <ItemGroup>
         <Compile Include="Logic\Autosplitter.cs" />
         <Compile Include="Logic\AutosplitterSettings.cs" />
-        <Compile Include="Logic\Map.cs" />
+        <Compile Include="Logic\Level.cs" />
         <Compile Include="Logic\Memory.cs" />
         <Compile Include="Logic\Split.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
