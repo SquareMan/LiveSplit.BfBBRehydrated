@@ -84,9 +84,13 @@
         <DependentUpon>SplitSettings.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Components" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
         <PostBuildEvent>
+            copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)
             copy $(TargetPath) C:\Users\Owner\Documents\Livesplit\Components\$(TargetFileName)
         </PostBuildEvent>
     </PropertyGroup>
