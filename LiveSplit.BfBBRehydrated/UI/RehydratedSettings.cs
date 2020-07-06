@@ -25,7 +25,8 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             XmlElement xmlSettings = document.CreateElement("Settings");
 
-            SettingsHelper.CreateSetting(document, xmlSettings, "CheckTest", doThing.Checked);
+            SettingsHelper.CreateSetting(document, xmlSettings, "ResetPreference",
+                AutosplitterSettings.ResetPreference);
 
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
@@ -45,9 +46,8 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         public void SetSettings(XmlNode node)
         {
-            var doThingChecked = SettingsHelper.ParseBool(node["CheckTest"]);
-            doThing.Checked = doThingChecked;
-
+            AutosplitterSettings.ResetPreference = SettingsHelper.ParseEnum<ResetPreference>(node["ResetPreference"]);
+            
             XmlReadSplits(node.SelectNodes(".//Splits/Split"));
             UpdateSplitControls();
         }
@@ -124,6 +124,52 @@ namespace LiveSplit.BfBBRehydrated.UI
         private void RehydratedSettings_Load(object sender, EventArgs e)
         {
             UpdateSplitControls();
+
+            // Update radio controls for reset preference
+            rdoNewGame.CheckedChanged -= rdoNewGame_CheckedChanged;
+            rdoMainMenu.CheckedChanged -= rdoMainMenu_CheckedChanged;
+            rdoNever.CheckedChanged -= rdoNever_CheckedChanged;
+            
+            switch (AutosplitterSettings.ResetPreference)
+            {
+                case ResetPreference.NewGame:
+                    rdoNewGame.Checked = true;
+                    break;
+                case ResetPreference.MainMenu:
+                    rdoMainMenu.Checked = true;
+                    break;
+                case ResetPreference.Never:
+                    rdoNever.Checked = true;
+                    break;
+            }
+            
+            rdoNewGame.CheckedChanged += rdoNewGame_CheckedChanged;
+            rdoMainMenu.CheckedChanged += rdoMainMenu_CheckedChanged;
+            rdoNever.CheckedChanged += rdoNever_CheckedChanged;
+        }
+
+        private void rdoNewGame_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoNewGame.Checked)
+            {
+                AutosplitterSettings.ResetPreference = ResetPreference.NewGame;
+            }
+        }
+
+        private void rdoMainMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoMainMenu.Checked)
+            {
+                AutosplitterSettings.ResetPreference = ResetPreference.MainMenu;
+            }
+        }
+
+        private void rdoNever_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoNever.Checked)
+            {
+                AutosplitterSettings.ResetPreference = ResetPreference.Never;
+            }
         }
     }
 }

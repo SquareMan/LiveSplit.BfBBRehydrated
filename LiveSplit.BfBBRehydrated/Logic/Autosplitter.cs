@@ -29,7 +29,6 @@ namespace LiveSplit.BfBBRehydrated.Logic
 
         public void Update()
         {
-            if (!Memory.IsHooked) return;
             _oldMemoryState = _currentMemoryState;
             _currentMemoryState = Memory.GetState();
             
@@ -82,8 +81,19 @@ namespace LiveSplit.BfBBRehydrated.Logic
 
         private bool ShouldReset()
         {
-            return _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
-                   _currentMemoryState.CurrentMap == Map.IntroCutscene;
+            switch (AutosplitterSettings.ResetPreference)
+            {
+                case ResetPreference.NewGame:
+                    return _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
+                           _currentMemoryState.CurrentMap == Map.IntroCutscene;
+                case ResetPreference.MainMenu:
+                    // Map.Any only appears in memory when the game is not hooked (i.e. after a crash)
+                    return _oldMemoryState.CurrentMap != Map.Any &&
+                           _oldMemoryState.CurrentMap != _currentMemoryState.CurrentMap &&
+                           _currentMemoryState.CurrentMap == Map.MainMenu;
+            }
+
+            return false;
         }
 
         private void OnStart(object obj, EventArgs e)
