@@ -31,14 +31,13 @@ namespace LiveSplit.BfBBRehydrated.UI
             xmlSettings.AppendChild(xmlSplits);
 
             // Create an XML node for each of the user's splits
-            // TODO: Store splitting logic settings here instead of split name
-            foreach(ISegment segment in _state.Run)
+            foreach(Split split in AutosplitterSettings.Autosplits)
             {
                 XmlElement xmlSplit = document.CreateElement("Split");
                 xmlSplits.AppendChild(xmlSplit);
                 
-                SettingsHelper.CreateSetting(document, xmlSplit, "Name", segment.Name);
-                SettingsHelper.CreateSetting(document, xmlSplit, "SplitType", SplitType.Manual);
+                SettingsHelper.CreateSetting(document, xmlSplit, "Name", split.Name);
+                SettingsHelper.CreateSetting(document, xmlSplit, "SplitType", split.Type);
             }
 
             return xmlSettings;
@@ -49,30 +48,77 @@ namespace LiveSplit.BfBBRehydrated.UI
             var doThingChecked = SettingsHelper.ParseBool(node["CheckTest"]);
             doThing.Checked = doThingChecked;
 
-            XmlNodeList splitNodes = node.SelectNodes(".//Splits/Split");
-            if (splitNodes != null)
+            XmlReadSplits(node.SelectNodes(".//Splits/Split"));
+            UpdateSplitControls();
+        }
+
+        private void XmlReadSplits(XmlNodeList splitNodes)
+        {
+            if (splitNodes == null) return;
+
+            for (int i = 0; i < splitNodes.Count; i++)
             {
-                foreach (XmlElement splitNode in splitNodes)
+                Split currentSplit;
+                if (i >= AutosplitterSettings.Autosplits.Count)
                 {
-                    //TODO: Deserialize split logic once implemented
+                    currentSplit = new Split();
+                    AutosplitterSettings.Autosplits.Add(currentSplit);
                 }
+                else
+                {
+                    currentSplit = AutosplitterSettings.Autosplits[i];
+                } 
+
+                // Assign saved split options
+                Enum.TryParse(SettingsHelper.ParseString(splitNodes[i]["SplitType"], SplitType.Manual.ToString()), out currentSplit.Type);
             }
             
-            UpdateSplitControls();
+            
         }
 
         private void UpdateSplitControls()
         {
-            flowLayoutSplits.SuspendLayout();
-            flowLayoutSplits.Controls.Clear();
-            
-            foreach (ISegment segment in _state.Run)
+            // Ensure Autosplits are up to date
+            bool changed = false;
+            for (var i = 0; i < _state.Run.Count; i++)
             {
-                SplitSettings splitBox = new SplitSettings(segment.Name);
-                flowLayoutSplits.Controls.Add(splitBox);
+                ISegment segment = _state.Run[i];
+
+                if (i >= AutosplitterSettings.Autosplits.Count)
+                {
+                    AutosplitterSettings.Autosplits.Add(new Split());
+                    changed = true;
+                }
+                
+                Split autosplit = AutosplitterSettings.Autosplits[i];
+                
+                if (segment.Name != autosplit.Name)
+                {
+                    autosplit.Name = segment.Name;
+                    changed = true;
+                }
             }
             
-            flowLayoutSplits.ResumeLayout(true);
+            //Remove any extra splits
+            while (AutosplitterSettings.Autosplits.Count > _state.Run.Count)
+            {
+                AutosplitterSettings.Autosplits.RemoveAt(AutosplitterSettings.Autosplits.Count - 1);
+                changed = true;
+            }
+
+            if (changed)
+            {
+                flowLayoutSplits.SuspendLayout();
+                flowLayoutSplits.Controls.Clear();
+            
+                foreach (Split split in AutosplitterSettings.Autosplits)
+                {
+                    SplitSettings splitBox = new SplitSettings(split);
+                    flowLayoutSplits.Controls.Add(splitBox);
+                }
+            
+                flowLayoutSplits.ResumeLayout(true);
+            }
         }
 
         private void RehydratedSettings_Load(object sender, EventArgs e)

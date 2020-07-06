@@ -13,7 +13,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         SpatCount
     }
     
-    public struct Split
+    public class Split
     {
         public string Name;
         public SplitType Type;

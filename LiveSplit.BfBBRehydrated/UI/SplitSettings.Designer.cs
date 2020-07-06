@@ -32,7 +32,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         private void InitializeComponent()
         {
             this.splitLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // splitLabel
@@ -45,20 +45,22 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.splitLabel.Text = "The cool split thing that happens here. Gaming Time ye";
             this.splitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // comboBox1
+            // cboType
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(244, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(203, 21);
-            this.comboBox1.TabIndex = 1;
+            this.cboType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboType.FormattingEnabled = true;
+            this.cboType.Location = new System.Drawing.Point(244, 3);
+            this.cboType.Name = "cboType";
+            this.cboType.Size = new System.Drawing.Size(203, 21);
+            this.cboType.TabIndex = 1;
+            this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
+            this.cboType.Validating += new System.ComponentModel.CancelEventHandler(this.cboType_Validating);
             // 
             // SplitSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboType);
             this.Controls.Add(this.splitLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SplitSettings";
@@ -66,7 +68,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboType;
         private System.Windows.Forms.Label splitLabel;
 
         #endregion
