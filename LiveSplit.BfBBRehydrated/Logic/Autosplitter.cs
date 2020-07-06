@@ -72,7 +72,10 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     return _oldMemoryState.SpatulaCount != _currentMemoryState.SpatulaCount &&
                            _currentMemoryState.Level == Level.ChumBucketBrain;
                 case SplitType.LevelTransition:
-                    return _oldMemoryState.Level != _currentMemoryState.Level;
+                    Level targetLevel = (Level) currentSplit.SubType;
+                    return targetLevel == Level.Any
+                        ? _oldMemoryState.Level != _currentMemoryState.Level
+                        : _oldMemoryState.Level != targetLevel && _currentMemoryState.Level == targetLevel;
                 case SplitType.LoadScreen:
                     return !_oldMemoryState.IsLoading && _currentMemoryState.IsLoading;
                 case SplitType.SpatCount:
