@@ -17,12 +17,15 @@ namespace LiveSplit.BfBBRehydrated.UI
     {
         private LiveSplitState _state;
         private RehydratedSettings _settings;
+        private Autosplitter _autosplitter;
+        
         private TextComponent _debugText;
 
         public Component(LiveSplitState state)
         {
             _state = state;
             _settings = new RehydratedSettings(state);
+            _autosplitter = new Autosplitter(state);
         }
         
         public void Dispose() {}
@@ -57,8 +60,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             Memory.HookProcess();
             
-            // Pause timer when loading
-            state.IsGameTimePaused = Memory.IsLoading;
+            _autosplitter.Update();
             
             UpdateDebug();
         }
