@@ -79,7 +79,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 case SplitType.LoadScreen:
                     return !_oldMemoryState.IsLoading && _currentMemoryState.IsLoading;
                 case SplitType.SpatCount:
-                    return _currentMemoryState.SpatulaCount == currentSplit.SubType; 
+                    return _oldMemoryState.SpatulaCount != currentSplit.SubType &&
+                           _currentMemoryState.SpatulaCount == currentSplit.SubType; 
             }
             return false;
         }
