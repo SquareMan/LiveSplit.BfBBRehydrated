@@ -49,7 +49,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(264, 3);
+            this.comboBox1.Location = new System.Drawing.Point(244, 3);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(203, 21);
             this.comboBox1.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.Controls.Add(this.splitLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SplitSettings";
-            this.Size = new System.Drawing.Size(470, 27);
+            this.Size = new System.Drawing.Size(450, 27);
             this.ResumeLayout(false);
         }
 
