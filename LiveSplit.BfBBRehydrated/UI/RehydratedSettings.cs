@@ -39,6 +39,7 @@ namespace LiveSplit.BfBBRehydrated.UI
                 
                 SettingsHelper.CreateSetting(document, xmlSplit, "Name", split.Name);
                 SettingsHelper.CreateSetting(document, xmlSplit, "SplitType", split.Type);
+                SettingsHelper.CreateSetting(document, xmlSplit, "SubType", split.SubType);
             }
 
             return xmlSettings;
@@ -71,6 +72,7 @@ namespace LiveSplit.BfBBRehydrated.UI
 
                 // Assign saved split options
                 Enum.TryParse(SettingsHelper.ParseString(splitNodes[i]["SplitType"], SplitType.Manual.ToString()), out currentSplit.Type);
+                currentSplit.SubType = SettingsHelper.ParseInt(splitNodes[i]["SubType"]);
             }
             
             

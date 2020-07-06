@@ -6,7 +6,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
     {
         [Description("Manual Split")]
         Manual,
-        GameStart,
+        // GameStart, Not currently implemented
         GameEnd,
         LevelTransition,
         LoadScreen,
