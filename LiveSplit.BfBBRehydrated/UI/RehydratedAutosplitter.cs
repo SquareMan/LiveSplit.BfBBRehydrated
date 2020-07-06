@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using LiveSplit.BfBBRehydrated.Logic;
 using LiveSplit.ComponentUtil;
 using LiveSplit.Model;
 using LiveSplit.UI;
@@ -16,10 +17,6 @@ namespace LiveSplit.BfBBRehydrated.UI
     {
         private LiveSplitState _state;
         private RehydratedSettings _settings;
-
-        private Process _game;
-        private bool _isHooked = false;
-        private readonly DeepPointer _isLoadingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0331A650, 0x20, 0x1D0);
         private TextComponent _debugText;
 
         public Component(LiveSplitState state)
@@ -58,35 +55,14 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            HookProcess();
-
-            if (_isHooked)
-            {
-                // Pause timer when loading
-                state.IsGameTimePaused = _isLoadingDP.Deref<bool>(_game);
-            }
+            Memory.HookProcess();
+            
+            // Pause timer when loading
+            state.IsGameTimePaused = Memory.IsLoading;
             
             UpdateDebug();
         }
 
-        /// <summary>
-        /// Attempt to hook the game process (if not already hooked)
-        /// </summary>
-        private void HookProcess()
-        {
-            _isHooked = _game != null && !_game.HasExited;
-            if (!_isHooked)
-            {
-                Process[] processes = Process.GetProcessesByName("Pineapple-Win64-Shipping");
-                
-                if (processes.Length <= 0)
-                    return;
-                
-                _game = processes.First();
-                _isHooked = true;
-            }
-        }
-        
         /// <summary>
         /// Find Debug text component to write output to it.
         /// </summary>
@@ -108,10 +84,9 @@ namespace LiveSplit.BfBBRehydrated.UI
             }
             else
             {
-                _debugText.Settings.Text1 = $"IsHooked: {_isHooked.ToString()}";
+                _debugText.Settings.Text1 = $"IsHooked: {Memory.IsHooked.ToString()}";
             }
         }
-        
 
         public string ComponentName => Factory.AutosplitterName;
         public float HorizontalWidth => 0;
