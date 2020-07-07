@@ -63,6 +63,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         private void cboType_SelectedIndexChanged(object sender, EventArgs e)
         {
             _split.Type = (SplitType) cboType.SelectedIndex;
+            _split.SubType = 0;
 
             //Toggle visibilities as necessary
             UpdateVisibilities();
