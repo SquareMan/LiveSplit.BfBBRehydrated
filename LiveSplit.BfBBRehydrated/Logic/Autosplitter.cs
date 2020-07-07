@@ -14,6 +14,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
         private int _currentSplitIndex = -1;
         private Memory.MemoryState _oldMemoryState;
         private Memory.MemoryState _currentMemoryState;
+        
+        private static readonly TimeSpan _splitDelay = TimeSpan.FromSeconds(0.1f);
+        private DateTime _timeUntilNextSplit;
 
         public Autosplitter(LiveSplitState state)
         {
@@ -44,7 +47,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     // Pause timer when loading
                     _state.IsGameTimePaused = Memory.IsLoading;
 
-                    if (ShouldSplit())
+                    if (DateTime.Now > _timeUntilNextSplit && ShouldSplit())
                     {
                         _model.Split();
                     }
@@ -110,6 +113,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
 
         private void OnSplit(object obj, EventArgs e)
         {
+            _timeUntilNextSplit = DateTime.Now + _splitDelay;
             _currentSplitIndex++;
         }
 
