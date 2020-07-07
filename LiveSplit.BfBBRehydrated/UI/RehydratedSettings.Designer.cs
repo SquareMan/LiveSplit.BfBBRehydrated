@@ -53,7 +53,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             // 
             // rdoNever
             // 
-            this.rdoNever.Location = new System.Drawing.Point(175, 19);
+            this.rdoNever.Location = new System.Drawing.Point(183, 19);
             this.rdoNever.Name = "rdoNever";
             this.rdoNever.Size = new System.Drawing.Size(57, 17);
             this.rdoNever.TabIndex = 3;
@@ -65,9 +65,9 @@ namespace LiveSplit.BfBBRehydrated.UI
             // 
             this.rdoMainMenu.Location = new System.Drawing.Point(92, 19);
             this.rdoMainMenu.Name = "rdoMainMenu";
-            this.rdoMainMenu.Size = new System.Drawing.Size(77, 17);
+            this.rdoMainMenu.Size = new System.Drawing.Size(85, 17);
             this.rdoMainMenu.TabIndex = 2;
-            this.rdoMainMenu.Text = "MainMenu";
+            this.rdoMainMenu.Text = "Main Menu";
             this.rdoMainMenu.UseVisualStyleBackColor = true;
             this.rdoMainMenu.CheckedChanged += new System.EventHandler(this.rdoMainMenu_CheckedChanged);
             // 
@@ -89,7 +89,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.grpReset.Location = new System.Drawing.Point(10, 10);
             this.grpReset.Margin = new System.Windows.Forms.Padding(10);
             this.grpReset.Name = "grpReset";
-            this.grpReset.Size = new System.Drawing.Size(238, 42);
+            this.grpReset.Size = new System.Drawing.Size(246, 42);
             this.grpReset.TabIndex = 5;
             this.grpReset.TabStop = false;
             this.grpReset.Text = "Auto Reset Preference";
