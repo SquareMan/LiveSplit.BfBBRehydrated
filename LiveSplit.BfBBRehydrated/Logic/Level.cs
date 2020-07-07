@@ -131,8 +131,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
             {"/Game/Maps/Mermalair/Part5/Mermalair_05_P", Level.MermalairVillainContainment},
 
             {"/Game/Maps/RockBottom/Part1/RockBottom_01_P", Level.RockBottomDowntown},
-            {"/Game/Maps/RockBottom/Part1/RockBottom_02_P", Level.RockBottomMuseum},
-            {"/Game/Maps/RockBottom/Part1/RockBottom_03_P", Level.RockBottomTrench},
+            {"/Game/Maps/RockBottom/Part2/RockBottom_02_P", Level.RockBottomMuseum},
+            {"/Game/Maps/RockBottom/Part3/RockBottom_03_P", Level.RockBottomTrench},
 
             {"/Game/Maps/SandMountain/Part1/SandMountain_01_P", Level.SandMountainHub},
             {"/Game/Maps/SandMountain/Part2/SandMountain_02_P", Level.SandMountainSlide1},
@@ -140,9 +140,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
             {"/Game/Maps/SandMountain/Part4/SandMountain_04_P", Level.SandMountainSlide3},
 
             {"/Game/Maps/KelpForest/Part1/KelpForest_01_P", Level.KelpForest},
-            {"/Game/Maps/KelpForest/Part1/KelpForest_02_P", Level.KelpForestSwamps},
-            {"/Game/Maps/KelpForest/Part1/KelpForest_03_P", Level.KelpForestCaves},
-            {"/Game/Maps/KelpForest/Part1/KelpForest_04_P", Level.KelpForestSlide},
+            {"/Game/Maps/KelpForest/Part2/KelpForest_02_P", Level.KelpForestSwamps},
+            {"/Game/Maps/KelpForest/Part3/KelpForest_03_P", Level.KelpForestCaves},
+            {"/Game/Maps/KelpForest/Part4/KelpForest_04_P", Level.KelpForestSlide},
 
             {"/Game/Maps/DutchmanGraveyard/Part1/DutchmanGraveyard_01_P", Level.GraveyardLake},
             {"/Game/Maps/DutchmanGraveyard/Part2/DutchmanGraveyard_02_P", Level.GraveyardShipwreck},
