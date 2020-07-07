@@ -26,6 +26,23 @@ namespace LiveSplit.BfBBRehydrated.UI
             _state = state;
             _settings = new RehydratedSettings(state);
             _autosplitter = new Autosplitter(state);
+            
+            // Make sure the user is using the correct Timing Method
+            if (_state.CurrentTimingMethod == TimingMethod.RealTime)
+            {        
+                var timingMessage = MessageBox.Show
+                (
+                    "This game uses Time without Loads (Game Time) as the main timing method.\n"+
+                    "LiveSplit is currently set to show Real Time (RTA).\n"+
+                    "Would you like to set the timing method to Game Time?",
+                    "LiveSplit | BFBB Rehydrated",
+                    MessageBoxButtons.YesNo,MessageBoxIcon.Question
+                );
+                if (timingMessage == DialogResult.Yes)
+                {
+                    _state.CurrentTimingMethod = TimingMethod.GameTime;
+                }
+            }
         }
         
         public void Dispose() {}
