@@ -83,7 +83,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     return !_oldMemoryState.IsLoading && _currentMemoryState.IsLoading;
                 case SplitType.SpatCount:
                     return _oldMemoryState.SpatulaCount != currentSplit.SubType &&
-                           _currentMemoryState.SpatulaCount == currentSplit.SubType; 
+                           _currentMemoryState.SpatulaCount == currentSplit.SubType;
+                case SplitType.SpatGrab:
+                    return _oldMemoryState.SpatulaCount != _currentMemoryState.SpatulaCount;
             }
             return false;
         }

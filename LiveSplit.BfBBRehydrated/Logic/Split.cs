@@ -9,7 +9,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
         [Description("Game End")] GameEnd,
         [Description("Load Screen")] LoadScreen,
         [Description("Level Transition")] LevelTransition,
-        [Description("Spatula Count")] SpatCount
+        [Description("Spatula Count")] SpatCount,
+        [Description("Spatula Grab")] SpatGrab
     }
     
     public class Split
