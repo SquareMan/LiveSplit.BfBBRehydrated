@@ -18,8 +18,6 @@ namespace LiveSplit.BfBBRehydrated.UI
         private LiveSplitState _state;
         private RehydratedSettings _settings;
         private Autosplitter _autosplitter;
-        
-        private TextComponent _debugText;
 
         public Component(LiveSplitState state)
         {
@@ -78,33 +76,6 @@ namespace LiveSplit.BfBBRehydrated.UI
             Memory.HookProcess();
             
             _autosplitter.Update();
-            
-            UpdateDebug();
-        }
-
-        /// <summary>
-        /// Find Debug text component to write output to it.
-        /// </summary>
-        private void UpdateDebug()
-        {
-            if(_debugText == null)
-            {
-                foreach (var layoutComponent in _state.Layout.LayoutComponents)
-                {
-                    if (layoutComponent.Component is TextComponent text)
-                    {
-                        if (text.Settings.Text1.IndexOf("DEBUG", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            _debugText = text;
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                _debugText.Settings.Text1 = $"IsHooked: {Memory.IsHooked.ToString()}";
-            }
         }
 
         public string ComponentName => Factory.AutosplitterName;
