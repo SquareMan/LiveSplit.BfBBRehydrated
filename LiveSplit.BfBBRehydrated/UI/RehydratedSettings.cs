@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 using LiveSplit.BfBBRehydrated.Logic;
 using LiveSplit.Model;
+using LiveSplit.Options;
 using LiveSplit.UI;
 
 namespace LiveSplit.BfBBRehydrated.UI
@@ -171,6 +173,37 @@ namespace LiveSplit.BfBBRehydrated.UI
             if (rdoNever.Checked)
             {
                 AutosplitterSettings.ResetPreference = ResetPreference.Never;
+            }
+        }
+
+        /// <summary>
+        /// Swap splits when a split is dragged.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void flowLayoutSplits_DragOver(object sender, DragEventArgs e)
+        {
+            SplitSettings draggedControl = (SplitSettings)e.Data.GetData(typeof(SplitSettings));
+            SplitSettings coveredControl = flowLayoutSplits.GetChildAtPoint(flowLayoutSplits.PointToClient(new Point(e.X, e.Y))) as SplitSettings;
+            
+            if (draggedControl != coveredControl && coveredControl != null) {
+                int draggedIndex = flowLayoutSplits.Controls.GetChildIndex(draggedControl);
+                int coveredIndex = flowLayoutSplits.Controls.GetChildIndex(coveredControl, false);
+
+                Split draggedSplit = AutosplitterSettings.Autosplits[draggedIndex];
+                Split coveredSplit = AutosplitterSettings.Autosplits[coveredIndex];
+                
+                string tmpName = draggedSplit.Name;
+                draggedSplit.Name = coveredSplit.Name;
+                coveredSplit.Name = tmpName;
+                
+                AutosplitterSettings.Autosplits[draggedIndex] = coveredSplit;
+                AutosplitterSettings.Autosplits[coveredIndex] = draggedSplit;
+                
+                draggedControl.UpdateControl();
+                coveredControl.UpdateControl();
+                flowLayoutSplits.Controls.SetChildIndex(draggedControl, coveredIndex);
+                flowLayoutSplits.Invalidate();
             }
         }
     }

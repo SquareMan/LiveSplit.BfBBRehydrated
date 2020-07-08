@@ -50,6 +50,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.flowLayoutSplits.Size = new System.Drawing.Size(450, 161);
             this.flowLayoutSplits.TabIndex = 0;
             this.flowLayoutSplits.WrapContents = false;
+            this.flowLayoutSplits.DragOver += new System.Windows.Forms.DragEventHandler(this.flowLayoutSplits_DragOver);
             // 
             // rdoNever
             // 

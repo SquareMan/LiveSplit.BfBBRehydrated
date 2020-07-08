@@ -40,6 +40,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             // splitLabel
             // 
             this.splitLabel.AutoEllipsis = true;
+            this.splitLabel.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.splitLabel.Location = new System.Drawing.Point(3, 3);
             this.splitLabel.Margin = new System.Windows.Forms.Padding(3);
             this.splitLabel.Name = "splitLabel";
@@ -47,6 +48,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.splitLabel.TabIndex = 0;
             this.splitLabel.Text = "The cool split thing that happens here. Gaming Time ye";
             this.splitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.splitLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitLabel_MouseDown);
             // 
             // cboType
             // 

@@ -45,7 +45,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     break;
                 case TimerPhase.Running:
                     // Pause timer when loading
-                    _state.IsGameTimePaused = Memory.IsLoading;
+                    _state.IsGameTimePaused = _currentMemoryState.IsLoading;
 
                     if (DateTime.Now > _timeUntilNextSplit && ShouldSplit())
                     {

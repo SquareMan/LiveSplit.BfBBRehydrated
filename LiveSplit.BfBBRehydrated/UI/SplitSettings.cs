@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using LiveSplit.BfBBRehydrated.Logic;
 
@@ -8,7 +9,7 @@ namespace LiveSplit.BfBBRehydrated.UI
     public partial class SplitSettings : UserControl
     {
         private Split _split;
-        
+
         public SplitSettings(Split split)
         {
             InitializeComponent();
@@ -21,7 +22,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             UpdateControl();
         }
 
-        private void UpdateControl()
+        public void UpdateControl()
         {
             cboType.SelectedIndexChanged -= cboType_SelectedIndexChanged;
             
@@ -59,7 +60,8 @@ namespace LiveSplit.BfBBRehydrated.UI
             }
         }
 
-#region EventHandlers
+        #region EventHandlers
+
         private void cboType_SelectedIndexChanged(object sender, EventArgs e)
         {
             _split.Type = (SplitType) cboType.SelectedIndex;
@@ -101,6 +103,12 @@ namespace LiveSplit.BfBBRehydrated.UI
                 cboSubType.SelectedIndex = _split.SubType;
             }
         }
-#endregion
+
+        private void splitLabel_MouseDown(object sender, MouseEventArgs e)
+        {
+            DoDragDrop(this,DragDropEffects.All);
+        }
+
+        #endregion
     }
 }
