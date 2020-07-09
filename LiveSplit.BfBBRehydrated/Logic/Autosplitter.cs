@@ -41,6 +41,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     if (ShouldStart())
                     {
                         _model.Start();
+                        _state.SetGameTime(TimeSpan.FromSeconds(StartOffset));
                     }
                     break;
                 case TimerPhase.Running:
@@ -109,7 +110,6 @@ namespace LiveSplit.BfBBRehydrated.Logic
 
         private void OnStart(object obj, EventArgs e)
         {
-            _state.SetGameTime(TimeSpan.FromSeconds(StartOffset));
             _currentSplitIndex = 0;
         }
 
