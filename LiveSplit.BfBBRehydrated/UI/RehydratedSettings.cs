@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
@@ -53,6 +54,97 @@ namespace LiveSplit.BfBBRehydrated.UI
             
             XmlReadSplits(node.SelectNodes(".//Splits/Split"));
             UpdateSplitControls();
+        }
+
+        /// <summary>
+        /// Reads XML serialized by ASL script and ports the settings over to our format
+        /// </summary>
+        /// <param name="node"></param>
+        public bool PortSettings(XmlNode node)
+        {
+            XmlNodeList settings = node.SelectNodes(".//CustomSettings/Setting");
+
+            if (settings == null)
+            {
+                return false;
+            }
+
+            bool reset = false;
+            bool misc = false;
+            bool spatSplit = false;
+            List<Split> convertedSplits = new List<Split>();
+            
+            // Extract information from XML
+            foreach (XmlNode setting in settings)
+            {
+                if (setting.Attributes == null) continue;
+                
+                var id = setting.Attributes["id"];
+                
+                // Parse the non spatCount settings
+                switch (id.InnerText)
+                {
+                    case "reset" when setting.InnerText == "False":
+                        AutosplitterSettings.ResetPreference = ResetPreference.Never;
+                        break;
+                    case "reset":
+                        reset = true;
+                        break;
+                    case "mainMenuReset" when reset && setting.InnerText == "True":
+                        AutosplitterSettings.ResetPreference = ResetPreference.MainMenu;
+                        break;
+                    case "newGameReset" when reset && setting.InnerText == "True":
+                        AutosplitterSettings.ResetPreference = ResetPreference.NewGame;
+                        break;
+                    case "misc" when setting.InnerText == "True":
+                        misc = true;
+                        break;
+                    case "warpSplit" when misc && setting.InnerText == "True":
+                        convertedSplits.Add(new Split{Type = SplitType.LevelTransition, SubType = (int)Level.ChumBucketLab});
+                        break;
+                    case "spatSplit" when setting.InnerText == "True":
+                        spatSplit = true;
+                        break;
+                }
+
+                // Parse the spat count settings, adding new splits for each ticked box.
+                if (spatSplit && id.InnerText.Contains("spat") && setting.InnerText == "True")
+                {
+                    if(int.TryParse(id.InnerText.Substring("spat".Length), out int spatNumber))
+                    {
+                        convertedSplits.Add(new Split {Type = SplitType.SpatCount, SubType = spatNumber});
+                    }
+                }
+            }
+            
+            // Add splits that were able to be extracted from the old settings
+            
+            if (convertedSplits.Count > 0)
+            {
+                for (int i = 0; i < convertedSplits.Count; i++)
+                {
+                    if (i >= AutosplitterSettings.Autosplits.Count)
+                    {
+                        AutosplitterSettings.Autosplits.Add(convertedSplits[i]);
+                    }
+                    else
+                    {
+                        AutosplitterSettings.Autosplits[i] = convertedSplits[i];
+                    } 
+                }
+            }
+
+            // If the user was using any manual splits we won't have an autosplit for each split.
+            // To ensure that the GameEnd split as at the end, add autosplits until we match the number of splits the user has.
+            while (AutosplitterSettings.Autosplits.Count < _state.Run.Count)
+            {
+                AutosplitterSettings.Autosplits.Add(new Split {Type = SplitType.Manual, SubType = 0});
+            }
+            
+            // Set final split to game end.
+            AutosplitterSettings.Autosplits[_state.Run.Count - 1] = new Split {Type = SplitType.GameEnd, SubType = 0}; 
+
+            return true;
         }
 
         private void XmlReadSplits(XmlNodeList splitNodes)

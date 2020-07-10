@@ -68,7 +68,29 @@ namespace LiveSplit.BfBBRehydrated.UI
         /// <param name="settings"></param>
         public void SetSettings(XmlNode settings)
         {
-            _settings.SetSettings(settings);
+            if (settings["ScriptPath"] != null)
+            {
+                //We have upgraded from the ASL script to this component.
+                if (MessageBox.Show
+                (
+                "The autosplitter has been updated, would you like to have your settings converted?", "LiveSplit | BFBB Rehydrated",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                ) == DialogResult.Yes)
+                {
+                    _settings.PortSettings(settings);
+                    MessageBox.Show
+                    (
+                        "The conversion process has completed. You may want to check your settings to make sure everything is still correct.\n\n" +
+                        "If you previously used the delay split option, you will need to manually setup Level Transition splits to achieve the same behavior.\n\n" +
+                        "If you previously used a mixture of manual and automatic splits you will need to manually reorder your split settings.",
+                        "LiveSplit | BFBB Rehydrated", MessageBoxButtons.OK, MessageBoxIcon.Information
+                    );
+                }
+            }
+            else
+            {
+                _settings.SetSettings(settings);
+            }
         }
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
