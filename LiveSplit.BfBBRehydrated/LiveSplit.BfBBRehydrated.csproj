@@ -94,7 +94,7 @@
       </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Components\updates.xml" />
+      <Content Include="Components\Updates.xml" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
