@@ -190,6 +190,12 @@ namespace LiveSplit.BfBBRehydrated.UI
                 int draggedIndex = flowLayoutSplits.Controls.GetChildIndex(draggedControl);
                 int coveredIndex = flowLayoutSplits.Controls.GetChildIndex(coveredControl, false);
 
+                if (Math.Abs(draggedIndex - coveredIndex) > 1)
+                {
+                    coveredIndex = coveredIndex > draggedIndex ? draggedIndex + 1 : draggedIndex - 1;
+                    coveredControl = (SplitSettings)flowLayoutSplits.Controls[coveredIndex];
+                }
+
                 Split draggedSplit = AutosplitterSettings.Autosplits[draggedIndex];
                 Split coveredSplit = AutosplitterSettings.Autosplits[coveredIndex];
                 
