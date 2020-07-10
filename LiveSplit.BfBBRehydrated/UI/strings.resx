@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Component_Caption" xml:space="preserve">
+        <value>LiveSplit | BFBB Rehydrated</value>
+    </data>
+    <data name="GameTime_Warning" xml:space="preserve">
+        <value>This game uses Time without Loads (Game Time) as the main timing method.
+LiveSplit is currently set to show Real Time (RTA).
+Would you like to set the timing method to Game Time?</value>
+    </data>
+    <data name="Settings_Conversion" xml:space="preserve">
+        <value>The autosplitter has been updated, would you like to have your settings converted?</value>
+    </data>
+    <data name="Settings_Conversion_Completed" xml:space="preserve">
+        <value>The conversion process has completed. You may want to check your settings to make sure everything is still correct.
+
+If you previously used the delay split option, you will need to manually setup Level Transition splits to achieve the same behavior.
+
+If you previously used a mixture of manual and automatic splits you will need to manually reorder your split settings.</value>
+    </data>
+</root>

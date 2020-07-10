@@ -75,6 +75,11 @@
         <Compile Include="UI\SplitSettings.Designer.cs">
           <DependentUpon>SplitSettings.cs</DependentUpon>
         </Compile>
+        <Compile Include="UI\strings.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>strings.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="UI\RehydratedSettings.resx">
@@ -82,6 +87,10 @@
       </EmbeddedResource>
       <EmbeddedResource Include="UI\SplitSettings.resx">
         <DependentUpon>SplitSettings.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Include="UI\strings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>strings.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>

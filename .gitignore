@@ -7,7 +7,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-*.sln.DotSettings.user
+*.user
 
 # Generated files
 .idea/**/contentModel.xml
