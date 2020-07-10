@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
 using LiveSplit.BfBBRehydrated.Logic;
@@ -27,6 +28,9 @@ namespace LiveSplit.BfBBRehydrated.UI
         public XmlNode GetSettings(XmlDocument document)
         {
             XmlElement xmlSettings = document.CreateElement("Settings");
+
+            SettingsHelper.CreateSetting(document, xmlSettings, "Version",
+                Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
 
             SettingsHelper.CreateSetting(document, xmlSettings, "ResetPreference",
                 AutosplitterSettings.ResetPreference);
