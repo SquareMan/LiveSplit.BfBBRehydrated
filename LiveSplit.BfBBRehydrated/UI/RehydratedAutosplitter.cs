@@ -15,25 +15,23 @@ namespace LiveSplit.BfBBRehydrated.UI
 {
     public class Component : IComponent
     {
-        private LiveSplitState _state;
-        private RehydratedSettings _settings;
-        private Autosplitter _autosplitter;
+        private readonly RehydratedSettings _settings;
+        private readonly Autosplitter _autosplitter;
 
         public Component(LiveSplitState state)
         {
-            _state = state;
             _settings = new RehydratedSettings(state);
             _autosplitter = new Autosplitter(state);
             
             // Make sure the user is using the correct Timing Method
-            if (_state.CurrentTimingMethod == TimingMethod.RealTime)
+            if (state.CurrentTimingMethod == TimingMethod.RealTime)
             {
                 var messageResponse = MessageBox.Show(strings.GameTime_Warning, strings.Component_Caption,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 
                 if (messageResponse == DialogResult.Yes)
                 {
-                    _state.CurrentTimingMethod = TimingMethod.GameTime;
+                    state.CurrentTimingMethod = TimingMethod.GameTime;
                 }
             }
         }
