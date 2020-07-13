@@ -13,7 +13,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         public string Description => AutosplitterName;
         public ComponentCategory Category => ComponentCategory.Control;
         public string UpdateName => ComponentName;
-        public string UpdateURL => "https://raw.githubusercontent.com/SquareMan/LiveSplit.BfBBRehydrated/master/";
+        public string UpdateURL => "https://raw.githubusercontent.com/SquareMan/LiveSplit.BfBBRehydrated/master/LiveSplit.BfBBRehydrated/";
         public string XMLURL => UpdateURL + "Components/Updates.xml";
         public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
     }
