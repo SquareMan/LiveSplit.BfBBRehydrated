@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.0.1">
+        <files>
+            <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix for split settings not displaying when reloading splits or reactivating the component </change>
+            <change> Minor Performance Improvements </change>
+        </changelog>
+    </update>
     <update version="1.0.0">
         <files>
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
