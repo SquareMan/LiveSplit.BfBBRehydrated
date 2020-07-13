@@ -30,6 +30,15 @@ namespace LiveSplit.BfBBRehydrated.Logic
             _state.OnReset += OnReset;
         }
 
+        public void Dispose()
+        {
+            _state.OnStart -= OnStart;
+            _state.OnSplit -= OnSplit;
+            _state.OnSkipSplit -= OnSkipSplit;
+            _state.OnUndoSplit -= OnUndoSplit;
+            _state.OnReset -= OnReset;
+        }
+
         public void Update()
         {
             _oldMemoryState = _currentMemoryState;

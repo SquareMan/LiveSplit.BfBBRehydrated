@@ -22,7 +22,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             _settings = new RehydratedSettings(state);
             _autosplitter = new Autosplitter(state);
-            
+
             // Make sure the user is using the correct Timing Method
             if (state.CurrentTimingMethod == TimingMethod.RealTime)
             {
@@ -35,8 +35,11 @@ namespace LiveSplit.BfBBRehydrated.UI
                 }
             }
         }
-        
-        public void Dispose() {}
+
+        public void Dispose()
+        {
+            _autosplitter.Dispose();
+        }
         public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion) {}
         public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion) {}
 
