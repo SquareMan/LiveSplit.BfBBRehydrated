@@ -5,6 +5,7 @@
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
         </files>
         <changelog>
+            <change> Fix for split settings not displaying when reloading splits or reactivating the component </change>
             <change> Minor Performance Improvements </change>
         </changelog>
     </update>

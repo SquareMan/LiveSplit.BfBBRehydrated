@@ -22,7 +22,11 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             _settings = new RehydratedSettings(state);
             _autosplitter = new Autosplitter(state);
-
+            
+            // TODO: This is a workaround for settings form not adding controls if the autosplits are incorrectly deemed to not have changed
+            // (Such as when the component is deactivated/reactivated, the static list stays the same, but the form is new. 
+            AutosplitterSettings.Autosplits = new List<Split>();
+            
             // Make sure the user is using the correct Timing Method
             if (state.CurrentTimingMethod == TimingMethod.RealTime)
             {
