@@ -5,6 +5,7 @@
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
         </files>
         <changelog>
+            <change> Display Autosplitter name and version in settings window title. </change>
             <change> Fix LiveSplit freezing when an unsupported game revision is hooked. </change>
         </changelog>
     </update>
