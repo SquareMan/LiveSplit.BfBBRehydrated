@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.1.0">
+        <files>
+            <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Support for Revision 603899 </change>
+        </changelog>
+    </update>
     <update version="1.0.2">
         <files>
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>

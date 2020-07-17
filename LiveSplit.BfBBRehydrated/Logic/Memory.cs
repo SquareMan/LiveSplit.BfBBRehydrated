@@ -16,7 +16,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
         public enum Version
         {
             Revision603296 = 603296,
-            Revision603442 = 603442
+            Revision603442 = 603442,
+            Revision603899 = 603899
         }
         
         public static Version GameVersion { get; private set; }
@@ -75,6 +76,14 @@ namespace LiveSplit.BfBBRehydrated.Logic
                         _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03416E10, 0x8A8, 0x0);
                         GameVersion = Version.Revision603442;
                         break;
+                    // Revision 603899
+                    case 58363904:
+                        _isLoadingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03319550, 0x20, 0x170);
+                        _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03166BE8, 0x8, 0x7A0);
+                        _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415D10, 0x8A8, 0x0);
+                        GameVersion = Version.Revision603899;
+                        break;
+                        
                 }
                 
                 IsHooked = true;
