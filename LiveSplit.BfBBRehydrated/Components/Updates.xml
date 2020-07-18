@@ -6,6 +6,7 @@
         </files>
         <changelog>
             <change> Display Autosplitter name and version in settings window title. </change>
+            <change> GameEnd split type should not fail if the current map could not be read. </change>
             <change> Fix issue where failure to read current map could cause timer to remain paused incorrectly. </change>
             <change> Fix LiveSplit freezing when an unsupported game revision is hooked. </change>
         </changelog>
