@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using LiveSplit.ComponentUtil;
 
@@ -28,8 +29,26 @@ namespace LiveSplit.BfBBRehydrated.Logic
         
         public static int SpatulaCount => IsHooked ? _spatulaCountDP.Deref<int>(Game) : 0;
         private static DeepPointer _spatulaCountDP;
-        
-        public static Level CurrentLevel => IsHooked ? MapsHelper.Paths[_currentLevelDP.DerefString(Game, 150)] : Level.Any;
+
+        public static Level CurrentLevel
+        {
+            get
+            {
+                if (!IsHooked)
+                {
+                    return Level.Any;
+                }
+                
+                string levelString = _currentLevelDP.DerefString(Game, 150, "");
+                if (MapsHelper.Paths.TryGetValue(levelString, out var currentLevel))
+                {
+                    return currentLevel;
+                }
+
+                // TODO: Unkown level, log error?
+                return Level.Any;
+            }
+        }
         private static DeepPointer _currentLevelDP;
         
         public static Process Game { get; private set; }
@@ -41,7 +60,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         /// <returns></returns>
         public static MemoryState GetState()
         {
-            return new MemoryState() {IsLoading = IsLoading, SpatulaCount = SpatulaCount, Level = CurrentLevel};
+            return new MemoryState {IsLoading = IsLoading, SpatulaCount = SpatulaCount, Level = CurrentLevel};
         }
         
         /// <summary>
