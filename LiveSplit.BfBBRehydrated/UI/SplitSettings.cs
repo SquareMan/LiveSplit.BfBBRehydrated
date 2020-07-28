@@ -64,6 +64,12 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         private void cboType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Check if the user re-selected the same type
+            if (cboType.SelectedIndex == (int) _split.Type)
+            {
+                return;
+            }
+            
             _split.Type = (SplitType) cboType.SelectedIndex;
             _split.SubType = 0;
 
@@ -75,7 +81,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             if (cboType.SelectedIndex < 0)
             {
-                cboType.SelectedIndex = (int) SplitType.Manual;
+                cboType.SelectedIndex = (int)_split.Type;
             }
         }
 
