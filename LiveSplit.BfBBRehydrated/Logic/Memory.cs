@@ -54,6 +54,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
         public static Process Game { get; private set; }
         public static bool IsHooked { get; private set; }
 
+        private const double HookAttemptDelay = 1.0;
+        private static DateTime _nextHookAttemptTime;
+
         /// <summary>
         /// Create a snapshot of the current memory values
         /// </summary>
@@ -79,6 +82,13 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 IsHooked = false;
                 return;
             }
+
+            // Only attempt to hook process once per second.
+            if (DateTime.Now < _nextHookAttemptTime)
+            {
+                return;
+            }
+            _nextHookAttemptTime = DateTime.Now.AddSeconds(HookAttemptDelay);
 
             Process[] processes = Process.GetProcessesByName("Pineapple-Win64-Shipping");
                 

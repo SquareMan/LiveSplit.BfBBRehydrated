@@ -5,7 +5,8 @@
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
         </files>
         <changelog>
-            <change> Fix autosplitter incorrectly splitting when the game crashes while a GameEnd or SpatGrab split is active. </change>
+            <change> Reduce frequency of hooking attempts when the game isn't open. </change>
+            <change> Fix autosplitter incorrectly splitting if the game closes while a GameEnd or SpatGrab split is active. </change>
         </changelog>
     </update>
     <update version="1.1.1">
