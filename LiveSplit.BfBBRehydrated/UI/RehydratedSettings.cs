@@ -229,6 +229,22 @@ namespace LiveSplit.BfBBRehydrated.UI
             
             UpdateSplitControls();
 
+            if(Memory.IsHooked)
+            {
+                lblRevision.Text = Memory.GameVersion switch
+                {
+                    Memory.Version.Unsupported => "Unsupported Game Version",
+                    Memory.Version.Revision603296 => "Game Revision: 603296",
+                    Memory.Version.Revision603442 => "Game Revision: 603442",
+                    Memory.Version.Revision603899 => "Game Revision: 603899",
+                    _ => lblRevision.Text
+                };
+            }
+            else
+            {
+                lblRevision.Text = "Game Not Running";
+            }
+
             // Update radio controls for reset preference
             rdoNewGame.CheckedChanged -= rdoNewGame_CheckedChanged;
             rdoMainMenu.CheckedChanged -= rdoMainMenu_CheckedChanged;

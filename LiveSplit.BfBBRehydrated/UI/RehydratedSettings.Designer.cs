@@ -36,6 +36,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.rdoMainMenu = new System.Windows.Forms.RadioButton();
             this.rdoNewGame = new System.Windows.Forms.RadioButton();
             this.grpReset = new System.Windows.Forms.GroupBox();
+            this.lblRevision = new System.Windows.Forms.Label();
             this.grpReset.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,10 +96,21 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.grpReset.TabStop = false;
             this.grpReset.Text = "Auto Reset Preference";
             // 
+            // lblRevision
+            // 
+            this.lblRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblRevision.Location = new System.Drawing.Point(269, 26);
+            this.lblRevision.Name = "lblRevision";
+            this.lblRevision.Size = new System.Drawing.Size(178, 23);
+            this.lblRevision.TabIndex = 6;
+            this.lblRevision.Text = "Game Revision: 000000";
+            this.lblRevision.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // RehydratedSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblRevision);
             this.Controls.Add(this.grpReset);
             this.Controls.Add(this.flowLayoutSplits);
             this.Margin = new System.Windows.Forms.Padding(0);
@@ -111,6 +123,7 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutSplits;
         private System.Windows.Forms.GroupBox grpReset;
+        private System.Windows.Forms.Label lblRevision;
         private System.Windows.Forms.RadioButton rdoMainMenu;
         private System.Windows.Forms.RadioButton rdoNever;
         private System.Windows.Forms.RadioButton rdoNewGame;
