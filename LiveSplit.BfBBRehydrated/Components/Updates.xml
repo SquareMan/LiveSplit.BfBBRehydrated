@@ -6,6 +6,7 @@
         </files>
         <changelog>
             <change> Reduce frequency of hooking attempts when the game isn't open. </change>
+            <change> Allow typing into split settings drop-down boxes with autocomplete support. </change>
             <change> Fix autosplitter incorrectly splitting if the game closes while a GameEnd or SpatGrab split is active. </change>
         </changelog>
     </update>

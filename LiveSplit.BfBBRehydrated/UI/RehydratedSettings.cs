@@ -23,7 +23,6 @@ namespace LiveSplit.BfBBRehydrated.UI
             
             // Cause this form to fill it's container in the settings menu
             Dock = DockStyle.Fill;
-            
         }
         
         public XmlNode GetSettings(XmlDocument document)
@@ -225,6 +224,8 @@ namespace LiveSplit.BfBBRehydrated.UI
         private void RehydratedSettings_Load(object sender, EventArgs e)
         {
             FindForm().Text = $"{Factory.AutosplitterName} Version {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}";
+            // Small hack to prevent enter from closing the form when typing in comboboxes.
+            FindForm().AcceptButton = null;
             
             UpdateSplitControls();
 

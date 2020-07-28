@@ -75,7 +75,7 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             if (cboType.SelectedIndex < 0)
             {
-                cboType.SelectedIndex = (int) SplitType.Manual;
+                cboType.SelectedIndex = (int)_split.Type;
             }
         }
 
