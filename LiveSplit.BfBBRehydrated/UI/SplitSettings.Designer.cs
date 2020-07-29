@@ -44,7 +44,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.splitLabel.Location = new System.Drawing.Point(3, 3);
             this.splitLabel.Margin = new System.Windows.Forms.Padding(3);
             this.splitLabel.Name = "splitLabel";
-            this.splitLabel.Size = new System.Drawing.Size(173, 21);
+            this.splitLabel.Size = new System.Drawing.Size(160, 21);
             this.splitLabel.TabIndex = 0;
             this.splitLabel.Text = "The cool split thing that happens here. Gaming Time ye";
             this.splitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -93,10 +93,10 @@ namespace LiveSplit.BfBBRehydrated.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cboSubType);
-            this.Controls.Add(this.txtValue);
-            this.Controls.Add(this.cboType);
             this.Controls.Add(this.splitLabel);
+            this.Controls.Add(this.cboType);
+            this.Controls.Add(this.txtValue);
+            this.Controls.Add(this.cboSubType);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SplitSettings";
             this.Size = new System.Drawing.Size(450, 27);
