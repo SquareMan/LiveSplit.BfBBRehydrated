@@ -231,14 +231,21 @@ namespace LiveSplit.BfBBRehydrated.UI
 
             if(Memory.IsHooked)
             {
-                lblRevision.Text = Memory.GameVersion switch
+                switch (Memory.GameVersion)
                 {
-                    Memory.Version.Unsupported => "Unsupported Game Version",
-                    Memory.Version.Revision603296 => "Game Revision: 603296",
-                    Memory.Version.Revision603442 => "Game Revision: 603442",
-                    Memory.Version.Revision603899 => "Game Revision: 603899",
-                    _ => lblRevision.Text
-                };
+                    case Memory.Version.Unsupported:
+                        lblRevision.Text = "Unsupported Game Version";
+                        break;
+                    case Memory.Version.Revision603296:
+                        lblRevision.Text = "Game Revision: 603296";
+                        break;
+                    case Memory.Version.Revision603442:
+                        lblRevision.Text = "Game Revision: 603442";
+                        break;
+                    case Memory.Version.Revision603899:
+                        lblRevision.Text = "Game Revision: 603899";
+                        break;
+                }
             }
             else
             {
