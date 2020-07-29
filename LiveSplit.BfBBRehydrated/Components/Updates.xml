@@ -6,6 +6,7 @@
         </files>
         <changelog>
             <change> Display the detected game version in the settings window. </change>
+            <change> Fix enter not closing the settings window when not being used to autocomplete. </change>
         </changelog>
     </update>
     <update version="1.1.2">

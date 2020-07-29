@@ -53,7 +53,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             // cboType
             // 
             this.cboType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboType.FormattingEnabled = true;
             this.cboType.Location = new System.Drawing.Point(169, 3);
@@ -78,7 +78,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             // cboSubType
             // 
             this.cboSubType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboSubType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cboSubType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboSubType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSubType.FormattingEnabled = true;
             this.cboSubType.Location = new System.Drawing.Point(311, 3);
