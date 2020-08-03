@@ -5,6 +5,7 @@
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
         </files>
         <changelog>
+            <change> Add support for splitting when a cutscene starts. </change>
         </changelog>
     </update>
     <update version="1.1.3">

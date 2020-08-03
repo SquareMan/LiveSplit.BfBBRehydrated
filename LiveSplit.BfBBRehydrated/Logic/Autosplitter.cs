@@ -96,6 +96,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
                            _currentMemoryState.SpatulaCount == currentSplit.SubType;
                 case SplitType.SpatGrab:
                     return _oldMemoryState.SpatulaCount < _currentMemoryState.SpatulaCount;
+                case SplitType.CutsceneStart:
+                    return !_oldMemoryState.IsCutsceneActive && _currentMemoryState.IsCutsceneActive;
             }
             return false;
         }

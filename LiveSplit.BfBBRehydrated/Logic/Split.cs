@@ -10,7 +10,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
         [Description("Load Screen")] LoadScreen,
         [Description("Level Transition")] LevelTransition,
         [Description("Spatula Count")] SpatCount,
-        [Description("Spatula Grab")] SpatGrab
+        [Description("Spatula Grab")] SpatGrab,
+        [Description("Cutscene Start")] CutsceneStart
     }
     
     public class Split
