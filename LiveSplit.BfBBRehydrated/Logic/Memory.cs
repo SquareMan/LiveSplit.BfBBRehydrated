@@ -50,12 +50,14 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 return Level.Any;
             }
         }
+        public static Location PlayerLocation => IsHooked ? _playerLocationDP.Deref<Location>(Game) : default;
 
         private static DeepPointer _isLoadingDP;
         private static DeepPointer _isCutsceneActiveDP;
         private static DeepPointer _sockCountDp;
         private static DeepPointer _spatulaCountDP;
         private static DeepPointer _currentLevelDP;
+        private static DeepPointer _playerLocationDP;
         
         public static Process Game { get; private set; }
         public static bool IsHooked { get; private set; }
@@ -121,6 +123,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _sockCountDp = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03487038, 0x8, 0x6DC);
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03487038, 0x8, 0x6E0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x3488090, 0x8A8, 0x0);
+                    _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03487F90, 0x8, 0x58, 0x98, 0x158, 0x1D0);
                     GameVersion = Version.Revision603296;
                     IsHooked = true;
                     break;
@@ -131,6 +134,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _sockCountDp = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415DB8, 0x8, 0x6DC);
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415DB8, 0x8, 0x6E0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03416E10, 0x8A8, 0x0);
+                    _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03416D10, 0x8, 0x58, 0x98, 0x158, 0x1D0);
                     GameVersion = Version.Revision603442;
                     IsHooked = true;
                     break;
@@ -141,6 +145,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _sockCountDp = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03166BE8, 0x8, 0x79C);
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03166BE8, 0x8, 0x7A0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415D10, 0x8A8, 0x0);
+                    _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415C10, 0x8, 0x58, 0x98, 0x158, 0x1D0);
                     GameVersion = Version.Revision603899;
                     IsHooked = true;
                     break;
@@ -149,6 +154,21 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     IsHooked = false;
                     break;
             }
+        }
+    }
+    
+    [StructLayout(LayoutKind.Sequential, Size = 12)]
+    public struct Location
+    {
+        public float X;
+        public float Y;
+        public float Z;
+
+        public Location(float x, float y, float z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
         }
     }
 }
