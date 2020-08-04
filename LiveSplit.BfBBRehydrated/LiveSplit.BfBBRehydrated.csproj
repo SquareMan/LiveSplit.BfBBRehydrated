@@ -97,7 +97,12 @@
       <Content Include="Components\Updates.xml" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PostBuildEvent>
+            copy $(TargetPath) C:\Users\Owner\Documents\Livesplit\Components\$(TargetFileName)
+        </PostBuildEvent>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PostBuildEvent>
             copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)
             copy $(TargetPath) C:\Users\Owner\Documents\Livesplit\Components\$(TargetFileName)
