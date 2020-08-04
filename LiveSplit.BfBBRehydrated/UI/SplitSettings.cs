@@ -52,6 +52,14 @@ namespace LiveSplit.BfBBRehydrated.UI
                     cboSubType.SelectedIndex = _split.SubType;
                     cboSubType.SelectedIndexChanged += cboSubType_SelectedIndexChanged;
                     break;
+                case SplitType.CutsceneStart:
+                    cboSubType.SelectedIndexChanged -= cboSubType_SelectedIndexChanged;
+                    txtValue.Visible = false;
+                    cboSubType.Visible = true;
+                    cboSubType.DataSource = Enum.GetValues(typeof(Sequence));
+                    cboSubType.SelectedIndex = _split.SubType;
+                    cboSubType.SelectedIndexChanged += cboSubType_SelectedIndexChanged;
+                    break;
                 default:
                     txtValue.Visible = false;
                     cboSubType.Visible = false;

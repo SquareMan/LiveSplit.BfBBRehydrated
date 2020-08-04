@@ -97,11 +97,15 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 case SplitType.SpatGrab:
                     return _oldMemoryState.SpatulaCount < _currentMemoryState.SpatulaCount;
                 case SplitType.CutsceneStart:
-                    return !_oldMemoryState.IsCutsceneActive && _currentMemoryState.IsCutsceneActive;
+                    Sequence targetSequence = (Sequence) currentSplit.SubType;
+                    bool intersects = targetSequence == Sequence.Any || MathHelper.Intersects(Memory.PlayerLocation,
+                        SequenceHelper.Bounds[targetSequence].Item1,
+                        SequenceHelper.Bounds[targetSequence].Item2);
+                    return !_oldMemoryState.IsCutsceneActive && _currentMemoryState.IsCutsceneActive && intersects;
             }
             return false;
         }
-
+        
         private bool ShouldReset()
         {
             switch (AutosplitterSettings.ResetPreference)
