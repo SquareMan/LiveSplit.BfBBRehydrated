@@ -22,7 +22,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
             Unsupported = 0,
             Revision603296 = 603296,
             Revision603442 = 603442,
-            Revision603899 = 603899
+            Revision603899 = 603899,
+            Revision604909 = 604909
         }
         
         public static Version GameVersion { get; private set; }
@@ -147,6 +148,17 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415D10, 0x8A8, 0x0);
                     _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415C10, 0x8, 0x58, 0x98, 0x158, 0x1D0);
                     GameVersion = Version.Revision603899;
+                    IsHooked = true;
+                    break;
+                // Revision 604909
+                case 58458112:
+                    _isLoadingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0332E250, 0x20, 0x1A0);
+                    _isCutsceneActiveDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0317B4B8, 0x8, 0x608, 0x38);
+                    _sockCountDp = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x317B4B8, 0x8, 0x79C);
+                    _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x317B4B8, 0x8, 0x7A0);
+                    _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342AA10, 0x8A8, 0x0);
+                    _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342A910, 0x8, 0x58, 0x98, 0x158, 0x1D0);
+                    GameVersion = Version.Revision604909;
                     IsHooked = true;
                     break;
                 default:

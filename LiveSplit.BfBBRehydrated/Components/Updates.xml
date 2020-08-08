@@ -5,6 +5,7 @@
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
         </files>
         <changelog>
+            <change> Support for Revision 604909 </change>
         </changelog>
     </update>
     <update version="1.2.1">

@@ -243,6 +243,9 @@ namespace LiveSplit.BfBBRehydrated.UI
                     case Memory.Version.Revision603899:
                         lblRevision.Text = "Game Revision: 603899";
                         break;
+                    case Memory.Version.Revision604909:
+                        lblRevision.Text = "Game Revision: 604909";
+                        break;
                 }
             }
             else
