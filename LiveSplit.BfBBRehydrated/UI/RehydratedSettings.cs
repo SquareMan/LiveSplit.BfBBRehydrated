@@ -223,7 +223,7 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         private void RehydratedSettings_Load(object sender, EventArgs e)
         {
-            FindForm().Text = $"{Factory.AutosplitterName} Version {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}";
+            FindForm().Text = $"{BfBBRehydratedFactory.AutosplitterName} Version {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}";
             
             UpdateSplitControls();
 

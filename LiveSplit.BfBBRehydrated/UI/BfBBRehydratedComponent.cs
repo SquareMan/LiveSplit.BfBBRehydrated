@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
 using LiveSplit.BfBBRehydrated.Logic;
-using LiveSplit.ComponentUtil;
 using LiveSplit.Model;
 using LiveSplit.UI;
 using LiveSplit.UI.Components;
 
 namespace LiveSplit.BfBBRehydrated.UI
 {
-    public class Component : LogicComponent
+    public class BfBBRehydratedComponent : LogicComponent
     {
-        public override string ComponentName => Factory.AutosplitterName;
+        public override string ComponentName => BfBBRehydratedFactory.AutosplitterName;
         
         private readonly RehydratedSettings _settings;
         private readonly Autosplitter _autosplitter;
 
-        public Component(LiveSplitState state)
+        public BfBBRehydratedComponent(LiveSplitState state)
         {
             _settings = new RehydratedSettings(state);
             _autosplitter = new Autosplitter(state);
