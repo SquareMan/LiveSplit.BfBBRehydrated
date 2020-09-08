@@ -11,7 +11,6 @@ namespace LiveSplit.BfBBRehydrated.Logic
         private LiveSplitState _state;
         private TimerModel _model;
 
-        private int _currentSplitIndex = -1;
         private Memory.MemoryState _oldMemoryState;
         private Memory.MemoryState _currentMemoryState;
         
@@ -22,21 +21,13 @@ namespace LiveSplit.BfBBRehydrated.Logic
         {
             _state = state;
             _model = new TimerModel() {CurrentState = _state};
-
-            _state.OnStart += OnStart;
+            
             _state.OnSplit += OnSplit;
-            _state.OnSkipSplit += OnSkipSplit;
-            _state.OnUndoSplit += OnUndoSplit;
-            _state.OnReset += OnReset;
         }
 
         public void Dispose()
         {
-            _state.OnStart -= OnStart;
             _state.OnSplit -= OnSplit;
-            _state.OnSkipSplit -= OnSkipSplit;
-            _state.OnUndoSplit -= OnUndoSplit;
-            _state.OnReset -= OnReset;
         }
 
         public void Update()
@@ -77,7 +68,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
 
         private bool ShouldSplit()
         {
-            Split currentSplit = AutosplitterSettings.Autosplits[_currentSplitIndex];
+            Split currentSplit = AutosplitterSettings.Autosplits[_state.CurrentSplitIndex];
 
             switch (currentSplit.Type)
             {
@@ -123,31 +114,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
             return false;
         }
 
-        private void OnStart(object obj, EventArgs e)
-        {
-            _currentSplitIndex = 0;
-        }
-
         private void OnSplit(object obj, EventArgs e)
         {
             _timeUntilNextSplit = DateTime.Now + _splitDelay;
-            _currentSplitIndex++;
         }
-
-        private void OnSkipSplit(object sender, EventArgs e)
-        {
-            _currentSplitIndex++;
-        }
-
-        private void OnUndoSplit(object sender, EventArgs e)
-        {
-            _currentSplitIndex--;
-        }
-
-        private void OnReset(object obj, TimerPhase phase)
-        {
-            _currentSplitIndex = -1;
-        }
-        
     }
 }

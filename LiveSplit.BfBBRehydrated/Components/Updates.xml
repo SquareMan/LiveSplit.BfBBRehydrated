@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.3.1">
+        <files>
+            <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> Fix major bug where opening the Edit Splits menu and closing it with Canel or X caused the autosplitter to break until resetting the timer. </change>
+        </changelog>
+    </update>
     <update version="1.3.0">
         <files>
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
