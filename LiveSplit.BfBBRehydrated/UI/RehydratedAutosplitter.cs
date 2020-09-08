@@ -13,8 +13,10 @@ using LiveSplit.UI.Components;
 
 namespace LiveSplit.BfBBRehydrated.UI
 {
-    public class Component : IComponent
+    public class Component : LogicComponent
     {
+        public override string ComponentName => Factory.AutosplitterName;
+        
         private readonly RehydratedSettings _settings;
         private readonly Autosplitter _autosplitter;
 
@@ -40,33 +42,29 @@ namespace LiveSplit.BfBBRehydrated.UI
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _autosplitter.Dispose();
         }
-        public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion) {}
-        public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion) {}
+        
+        public override void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
+        {
+            Memory.HookProcess();
+            
+            _autosplitter.Update();
+        }
 
-        public Control GetSettingsControl(LayoutMode mode)
+        public override Control GetSettingsControl(LayoutMode mode)
         {
             return _settings;
         }
 
-        /// <summary>
-        /// Called continuously by LiveSplit
-        /// </summary>
-        /// <param name="document"></param>
-        /// <returns></returns>
-        public XmlNode GetSettings(XmlDocument document)
+        public override XmlNode GetSettings(XmlDocument document)
         {
             return _settings.GetSettings(document);
         }
 
-        /// <summary>
-        /// Called by LiveSplit on startup and after closing the Edit Layout menu (even if nothing is changed)
-        /// </summary>
-        /// <param name="settings"></param>
-        public void SetSettings(XmlNode settings)
+        public override void SetSettings(XmlNode settings)
         {
             if (settings["ScriptPath"] != null)
             {
@@ -88,23 +86,5 @@ namespace LiveSplit.BfBBRehydrated.UI
                 _settings.SetSettings(settings);
             }
         }
-
-        public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
-        {
-            Memory.HookProcess();
-            
-            _autosplitter.Update();
-        }
-
-        public string ComponentName => Factory.AutosplitterName;
-        public float HorizontalWidth => 0;
-        public float MinimumHeight => 0;
-        public float VerticalHeight => 0;
-        public float MinimumWidth => 0;
-        public float PaddingTop => 0;
-        public float PaddingBottom => 0;
-        public float PaddingLeft => 0;
-        public float PaddingRight => 0;
-        public IDictionary<string, Action> ContextMenuControls { get; }
     }
 }
