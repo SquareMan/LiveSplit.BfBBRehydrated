@@ -33,7 +33,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="LiveSplit.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>C:\Users\Owner\Documents\Livesplit\LiveSplit.Core.dll</HintPath>
+          <HintPath>..\..\Livesplit\LiveSplit.Core.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -42,7 +42,7 @@
         <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xml" />
         <Reference Include="UpdateManager, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>C:\Users\Owner\Documents\Livesplit\UpdateManager.dll</HintPath>
+          <HintPath>..\..\Livesplit\UpdateManager.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -90,23 +90,15 @@
       <Content Include="Components\Updates.xml" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PostBuildEvent>
-            copy $(TargetPath) C:\Users\Owner\Documents\Livesplit\Components\$(TargetFileName)
-        </PostBuildEvent>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PostBuildEvent>
-            copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)
-            copy $(TargetPath) C:\Users\Owner\Documents\Livesplit\Components\$(TargetFileName)
-        </PostBuildEvent>
-    </PropertyGroup>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>
-    <Target Name="AfterBuild">
-    </Target>
     -->
-
+    <Target Name="AfterBuild">
+        <!-- Copy dll to LiveSplit component folder for testing -->
+        <Exec Command="copy $(TargetPath) $(ProjectDir)..\..\Livesplit\Components\$(TargetFileName)" />
+        <!-- Copy dll to repository Component folder if building for Release -->
+        <Exec Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Command="copy $(TargetPath) $(ProjectDir)Components\$(TargetFileName)" />
+    </Target>
 </Project>
