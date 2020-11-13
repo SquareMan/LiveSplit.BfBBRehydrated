@@ -51,7 +51,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 return Level.Any;
             }
         }
-        public static Location PlayerLocation => IsHooked ? _playerLocationDP.Deref<Location>(Game) : default;
+        public static Vector3f PlayerLocation => IsHooked ? _playerLocationDP.Deref<Vector3f>(Game) : default;
 
         private static DeepPointer _isLoadingDP;
         private static DeepPointer _isCutsceneActiveDP;
@@ -106,13 +106,11 @@ namespace LiveSplit.BfBBRehydrated.Logic
             }
             _nextHookAttemptTime = DateTime.Now.AddSeconds(HookAttemptDelay);
 
-            Process[] processes = Process.GetProcessesByName("Pineapple-Win64-Shipping");
-                
-            if (processes.Length <= 0)
+            Game = Process.GetProcessesByName("Pineapple-Win64-Shipping").FirstOrDefault();
+
+            if (Game?.MainModule == null)
                 return;
-                
-            Game = processes.First();
-                
+
             // Determine Game Version
             int moduleMemorySize = Game.MainModule.ModuleMemorySize;
             switch (moduleMemorySize)
@@ -166,21 +164,6 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     IsHooked = false;
                     break;
             }
-        }
-    }
-    
-    [StructLayout(LayoutKind.Sequential, Size = 12)]
-    public struct Location
-    {
-        public float X;
-        public float Y;
-        public float Z;
-
-        public Location(float x, float y, float z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
         }
     }
 }
