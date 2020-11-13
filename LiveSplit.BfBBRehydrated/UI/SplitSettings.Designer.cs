@@ -53,14 +53,14 @@ namespace LiveSplit.BfBBRehydrated.UI
             // cboType
             // 
             this.cboType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboType.FormattingEnabled = true;
             this.cboType.Location = new System.Drawing.Point(169, 3);
             this.cboType.Name = "cboType";
             this.cboType.Size = new System.Drawing.Size(136, 21);
             this.cboType.TabIndex = 1;
-            this.cboType.SelectedIndexChanged += new System.EventHandler(this.cboType_SelectedIndexChanged);
+            this.cboType.SelectionChangeCommitted += new System.EventHandler(this.cboType_SelectionChangeCommitted);
             this.cboType.Validating += new System.ComponentModel.CancelEventHandler(this.cboType_Validating);
             // 
             // txtValue
@@ -78,15 +78,15 @@ namespace LiveSplit.BfBBRehydrated.UI
             // cboSubType
             // 
             this.cboSubType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboSubType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboSubType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboSubType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSubType.FormattingEnabled = true;
             this.cboSubType.Location = new System.Drawing.Point(311, 3);
             this.cboSubType.Name = "cboSubType";
             this.cboSubType.Size = new System.Drawing.Size(136, 21);
             this.cboSubType.TabIndex = 3;
             this.cboSubType.Visible = false;
-            this.cboSubType.SelectedIndexChanged += new System.EventHandler(this.cboSubType_SelectedIndexChanged);
+            this.cboSubType.SelectionChangeCommitted += new System.EventHandler(this.cboSubType_SelectionChangeCommitted);
             this.cboSubType.Validating += new System.ComponentModel.CancelEventHandler(this.cboSubType_Validating);
             // 
             // SplitSettings

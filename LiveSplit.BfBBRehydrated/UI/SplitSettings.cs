@@ -24,15 +24,10 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         public void UpdateControl()
         {
-            cboType.SelectedIndexChanged -= cboType_SelectedIndexChanged;
-            
             splitLabel.Text = _split.Name;
             cboType.DataSource = Enum.GetValues(typeof(SplitType));
             cboType.SelectedIndex = (int) _split.Type;
-
             UpdateVisibilities();
-
-            cboType.SelectedIndexChanged += cboType_SelectedIndexChanged;
         }
 
         private void UpdateVisibilities()
@@ -45,20 +40,16 @@ namespace LiveSplit.BfBBRehydrated.UI
                     txtValue.Text = _split.SubType.ToString();
                     break;
                 case SplitType.LevelTransition:
-                    cboSubType.SelectedIndexChanged -= cboSubType_SelectedIndexChanged;
                     txtValue.Visible = false;
                     cboSubType.Visible = true;
                     cboSubType.DataSource = Enum.GetValues(typeof(Level));
                     cboSubType.SelectedIndex = _split.SubType;
-                    cboSubType.SelectedIndexChanged += cboSubType_SelectedIndexChanged;
                     break;
                 case SplitType.CutsceneStart:
-                    cboSubType.SelectedIndexChanged -= cboSubType_SelectedIndexChanged;
                     txtValue.Visible = false;
                     cboSubType.Visible = true;
                     cboSubType.DataSource = Enum.GetValues(typeof(Sequence));
                     cboSubType.SelectedIndex = _split.SubType;
-                    cboSubType.SelectedIndexChanged += cboSubType_SelectedIndexChanged;
                     break;
                 default:
                     txtValue.Visible = false;
@@ -66,23 +57,6 @@ namespace LiveSplit.BfBBRehydrated.UI
                     _split.SubType = 0;
                     break;
             }
-        }
-
-        #region EventHandlers
-
-        private void cboType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Check if the user re-selected the same type
-            if (cboType.SelectedIndex == (int) _split.Type)
-            {
-                return;
-            }
-            
-            _split.Type = (SplitType) cboType.SelectedIndex;
-            _split.SubType = 0;
-
-            //Toggle visibilities as necessary
-            UpdateVisibilities();
         }
 
         private void cboType_Validating(object sender, CancelEventArgs e)
@@ -105,11 +79,6 @@ namespace LiveSplit.BfBBRehydrated.UI
             }
         }
 
-        private void cboSubType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _split.SubType = cboSubType.SelectedIndex;
-        }
-
         private void cboSubType_Validating(object sender, CancelEventArgs e)
         {
             if (cboSubType.SelectedIndex < 0)
@@ -123,6 +92,24 @@ namespace LiveSplit.BfBBRehydrated.UI
             DoDragDrop(this,DragDropEffects.All);
         }
 
-        #endregion
+        private void cboType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //Check if the user re-selected the same type
+            if (cboType.SelectedIndex == (int) _split.Type)
+            {
+                return;
+            }
+            
+            _split.Type = (SplitType) cboType.SelectedIndex;
+            _split.SubType = 0;
+
+            //Toggle visibilities as necessary
+            UpdateVisibilities();
+        }
+
+        private void cboSubType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _split.SubType = cboSubType.SelectedIndex;
+        }
     }
 }
