@@ -3,7 +3,7 @@ Spongebob Squarepants: Battle for Bikini Bottom - Rehydrated Autosplitter
 
 ## Setup
   - From within LiveSplit open the Edit Splits Window
-  - Set the game to SpongeBob SquarePants: Battle for Bikini Bottom – Rehydrated
+  - Set the game to SpongeBob SquarePants: Battle for Bikini Bottom – Rehydrated or SpongeBob SquarePants: Battle for Bikini Bottom – Rehydrated Category Extensions
   - Click the Activate button
   - Configure logic by clicking the Settings button
     
