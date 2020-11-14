@@ -23,6 +23,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             
             // Cause this form to fill it's container in the settings menu
             Dock = DockStyle.Fill;
+            cboStartType.DataSource = new [] {SplitType.GameStart, SplitType.LevelTransition, SplitType.Manual};
         }
         
         public XmlNode GetSettings(XmlDocument document)
@@ -31,9 +32,9 @@ namespace LiveSplit.BfBBRehydrated.UI
 
             SettingsHelper.CreateSetting(document, xmlSettings, "Version",
                 Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
-
-            SettingsHelper.CreateSetting(document, xmlSettings, "ResetPreference",
-                AutosplitterSettings.ResetPreference);
+            SettingsHelper.CreateSetting(document, xmlSettings, "ResetPreference", AutosplitterSettings.ResetPreference);
+            SettingsHelper.CreateSetting(document, xmlSettings, "StartCondition", AutosplitterSettings.StartCondition);
+            SettingsHelper.CreateSetting(document, xmlSettings, "StartLevel", AutosplitterSettings.StartLevel);
 
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
@@ -55,6 +56,21 @@ namespace LiveSplit.BfBBRehydrated.UI
         public void SetSettings(XmlNode node)
         {
             AutosplitterSettings.ResetPreference = SettingsHelper.ParseEnum<ResetPreference>(node["ResetPreference"]);
+            AutosplitterSettings.StartCondition = SettingsHelper.ParseEnum(node["StartCondition"], SplitType.GameStart);
+            AutosplitterSettings.StartLevel = SettingsHelper.ParseEnum(node["StartLevel"], Level.Any);
+
+            // Make UI properly reflect the loaded settings.
+            cboStartType.SelectedItem = AutosplitterSettings.StartCondition;
+            if (AutosplitterSettings.StartCondition == SplitType.LevelTransition)
+            {
+                cboStartSubType.Visible = true;
+                cboStartSubType.DataSource = Enum.GetValues(typeof(Level));
+            }
+            else
+            {
+                cboStartSubType.Visible = false;
+            }
+            cboStartSubType.SelectedItem = AutosplitterSettings.StartLevel;
             
             XmlReadSplits(node.SelectNodes(".//Splits/Split"));
             UpdateSplitControls();
@@ -335,6 +351,27 @@ namespace LiveSplit.BfBBRehydrated.UI
                 flowLayoutSplits.Controls.SetChildIndex(draggedControl, coveredIndex);
                 flowLayoutSplits.Invalidate();
             }
+        }
+
+        private void cboStartType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            AutosplitterSettings.StartCondition = cboStartType.SelectedItem is SplitType type ? type : SplitType.Manual;
+
+            if (AutosplitterSettings.StartCondition == SplitType.LevelTransition)
+            {
+                cboStartSubType.Visible = true;
+                cboStartSubType.DataSource = Enum.GetValues(typeof(Level));
+            }
+            else
+            {
+                cboStartSubType.Visible = false;
+                AutosplitterSettings.StartLevel = Level.Any;
+            }
+        }
+
+        private void cboStartSubType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            AutosplitterSettings.StartLevel = cboStartSubType.SelectedItem is Level level ? level : Level.Any;
         }
     }
 }

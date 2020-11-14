@@ -62,8 +62,19 @@ namespace LiveSplit.BfBBRehydrated.Logic
 
         private bool ShouldStart()
         {
-            return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
-                   _currentMemoryState.Level == Level.IntroCutscene;
+            switch (AutosplitterSettings.StartCondition)
+            {
+                case SplitType.GameStart:
+                    return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
+                           _currentMemoryState.Level == Level.IntroCutscene;
+                case SplitType.LevelTransition:
+                    Level targetLevel = AutosplitterSettings.StartLevel;
+                    return targetLevel == Level.Any
+                        ? _oldMemoryState.Level != _currentMemoryState.Level
+                        : _oldMemoryState.Level != targetLevel && _currentMemoryState.Level == targetLevel;
+                default:
+                    return false;
+            }
         }
 
         private bool ShouldSplit()

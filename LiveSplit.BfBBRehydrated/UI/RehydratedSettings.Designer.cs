@@ -37,6 +37,9 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.rdoNewGame = new System.Windows.Forms.RadioButton();
             this.grpReset = new System.Windows.Forms.GroupBox();
             this.lblRevision = new System.Windows.Forms.Label();
+            this.lblStartCondition = new System.Windows.Forms.Label();
+            this.cboStartType = new System.Windows.Forms.ComboBox();
+            this.cboStartSubType = new System.Windows.Forms.ComboBox();
             this.grpReset.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,10 +49,10 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.flowLayoutSplits.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutSplits.AutoScroll = true;
             this.flowLayoutSplits.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutSplits.Location = new System.Drawing.Point(0, 65);
+            this.flowLayoutSplits.Location = new System.Drawing.Point(0, 92);
             this.flowLayoutSplits.Name = "flowLayoutSplits";
-            this.flowLayoutSplits.Size = new System.Drawing.Size(450, 161);
-            this.flowLayoutSplits.TabIndex = 0;
+            this.flowLayoutSplits.Size = new System.Drawing.Size(450, 134);
+            this.flowLayoutSplits.TabIndex = 10;
             this.flowLayoutSplits.WrapContents = false;
             this.flowLayoutSplits.DragOver += new System.Windows.Forms.DragEventHandler(this.flowLayoutSplits_DragOver);
             // 
@@ -106,10 +109,50 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.lblRevision.Text = "Game Revision: 000000";
             this.lblRevision.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblStartCondition
+            // 
+            this.lblStartCondition.AutoEllipsis = true;
+            this.lblStartCondition.Cursor = System.Windows.Forms.Cursors.SizeAll;
+            this.lblStartCondition.Location = new System.Drawing.Point(3, 65);
+            this.lblStartCondition.Margin = new System.Windows.Forms.Padding(3);
+            this.lblStartCondition.Name = "lblStartCondition";
+            this.lblStartCondition.Size = new System.Drawing.Size(160, 21);
+            this.lblStartCondition.TabIndex = 7;
+            this.lblStartCondition.Text = "Timer Start";
+            this.lblStartCondition.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cboStartType
+            // 
+            this.cboStartType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboStartType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboStartType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStartType.FormattingEnabled = true;
+            this.cboStartType.Location = new System.Drawing.Point(169, 65);
+            this.cboStartType.Name = "cboStartType";
+            this.cboStartType.Size = new System.Drawing.Size(136, 21);
+            this.cboStartType.TabIndex = 8;
+            this.cboStartType.SelectionChangeCommitted += new System.EventHandler(this.cboStartType_SelectionChangeCommitted);
+            // 
+            // cboStartSubType
+            // 
+            this.cboStartSubType.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboStartSubType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboStartSubType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStartSubType.FormattingEnabled = true;
+            this.cboStartSubType.Location = new System.Drawing.Point(311, 65);
+            this.cboStartSubType.Name = "cboStartSubType";
+            this.cboStartSubType.Size = new System.Drawing.Size(136, 21);
+            this.cboStartSubType.TabIndex = 9;
+            this.cboStartSubType.Visible = false;
+            this.cboStartSubType.SelectionChangeCommitted += new System.EventHandler(this.cboStartSubType_SelectionChangeCommitted);
+            // 
             // RehydratedSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblStartCondition);
+            this.Controls.Add(this.cboStartType);
+            this.Controls.Add(this.cboStartSubType);
             this.Controls.Add(this.lblRevision);
             this.Controls.Add(this.grpReset);
             this.Controls.Add(this.flowLayoutSplits);
@@ -120,6 +163,10 @@ namespace LiveSplit.BfBBRehydrated.UI
             this.grpReset.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.ComboBox cboStartSubType;
+        private System.Windows.Forms.ComboBox cboStartType;
+        private System.Windows.Forms.Label lblStartCondition;
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutSplits;
         private System.Windows.Forms.GroupBox grpReset;
