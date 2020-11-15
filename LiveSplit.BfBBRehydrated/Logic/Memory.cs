@@ -13,6 +13,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
             public bool IsLoading;
             public bool IsPaused;
             public bool IsCutsceneActive;
+            public bool IsInteracting;
             public int SockCount;
             public int SpatulaCount;
             public Level Level;
@@ -32,6 +33,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         public static bool IsLoading => IsHooked && _isLoadingDP.Deref<bool>(Game);
         public static bool IsPaused => IsHooked && _isPausedDP.Deref<bool>(Game);
         public static bool IsCutsceneActive => IsHooked && _isCutsceneActiveDP.Deref<bool>(Game);
+        public static bool IsInteracting => IsHooked && _isInteractingDP.Deref<bool>(Game);
         public static int SockCount => IsHooked ? _sockCountDp.Deref<int>(Game) : 0;
         public static int SpatulaCount => IsHooked ? _spatulaCountDP.Deref<int>(Game) : 0;
         public static Level CurrentLevel
@@ -58,6 +60,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         private static DeepPointer _isLoadingDP;
         private static DeepPointer _isPausedDP;
         private static DeepPointer _isCutsceneActiveDP;
+        private static DeepPointer _isInteractingDP;
         private static DeepPointer _sockCountDp;
         private static DeepPointer _spatulaCountDP;
         private static DeepPointer _currentLevelDP;
@@ -78,7 +81,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
             return new MemoryState
             {
                 IsLoading = IsLoading,
+                IsPaused = IsPaused,
                 IsCutsceneActive = IsCutsceneActive,
+                IsInteracting = IsInteracting,
                 SockCount = SockCount,
                 SpatulaCount = SpatulaCount,
                 Level = CurrentLevel
@@ -159,6 +164,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _isLoadingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0332E250, 0x20, 0x1A0);
                     _isPausedDP = new DeepPointer("Pineapple-Win64-Shipping.exe",0x0342AA10, 0x8A0);
                     _isCutsceneActiveDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0317B4B8, 0x8, 0x608, 0x38);
+                    _isInteractingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415F30, 0x120, 0x250, 0x88, 0x558, 0x34);
                     _sockCountDp = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x317B4B8, 0x8, 0x79C);
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x317B4B8, 0x8, 0x7A0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342AA10, 0x8A8, 0x0);
