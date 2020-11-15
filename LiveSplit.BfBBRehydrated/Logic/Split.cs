@@ -6,6 +6,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
     {
         [Description("Manual Split")] Manual,
         [Description("Game End")] GameEnd,
+        [Description("Individual Level Complete")] IndividualLevelComplete,
         [Description("Load Screen")] LoadScreen,
         [Description("Level Transition")] LevelTransition,
         [Description("Spatula Count")] SpatCount,

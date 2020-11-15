@@ -19,6 +19,12 @@ namespace LiveSplit.BfBBRehydrated.Logic
         SpongebobsDream
     }
 
+    public enum IndividualLevelCompletion
+    {
+        AllLevelSpatulas,
+        OneHundredPercent
+    }
+
     public static class IndividualLevelInformation
     {
         // Tuple contains Starting Level, Spatula Count, Sock Count

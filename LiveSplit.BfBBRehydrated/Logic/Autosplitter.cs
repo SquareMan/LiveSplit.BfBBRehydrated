@@ -18,6 +18,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         private LiveSplitState _state;
         private TimerModel _model;
 
+        private Memory.MemoryState _startingMemoryState;
         private Memory.MemoryState _oldMemoryState;
         private Memory.MemoryState _currentMemoryState;
         
@@ -47,6 +48,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 case TimerPhase.NotRunning:
                     if (ShouldStart())
                     {
+                        _startingMemoryState = _currentMemoryState;
                         _model.Start();
                         _state.SetGameTime(TimeSpan.FromSeconds(StartOffset[AutosplitterSettings.StartCondition]));
                     }
@@ -92,6 +94,15 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 case SplitType.GameEnd:
                     return _oldMemoryState.SpatulaCount < _currentMemoryState.SpatulaCount &&
                            (_currentMemoryState.Level == Level.ChumBucketBrain || _currentMemoryState.Level == Level.Any);
+                case SplitType.IndividualLevelComplete:
+                    var completion = (IndividualLevelCompletion) currentSplit.SubType;
+                    var (_, requiredSpats, requiredSocks) = IndividualLevelInformation.LevelDictionary[AutosplitterSettings.IndividualLevel];
+                    var collectedSpats = _currentMemoryState.SpatulaCount - _startingMemoryState.SpatulaCount;
+                    var collectedSocks = completion == IndividualLevelCompletion.AllLevelSpatulas
+                        ? requiredSocks
+                        : _currentMemoryState.SockCount - _startingMemoryState.SockCount;
+                    return !_oldMemoryState.IsPaused && _currentMemoryState.IsPaused &&
+                           collectedSpats == requiredSpats && collectedSocks == requiredSocks;
                 case SplitType.LevelTransition:
                     Level targetLevel = (Level) currentSplit.SubType;
                     return targetLevel == Level.Any

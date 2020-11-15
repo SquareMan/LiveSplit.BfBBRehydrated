@@ -34,6 +34,12 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             switch (_split.Type)
             {
+                case SplitType.IndividualLevelComplete:
+                    txtValue.Visible = false;
+                    cboSubType.Visible = true;
+                    cboSubType.DataSource = Enum.GetValues(typeof(IndividualLevelCompletion));
+                    cboSubType.SelectedIndex = _split.SubType;
+                    break;
                 case SplitType.SpatCount:
                     txtValue.Visible = true;
                     cboSubType.Visible = false;
