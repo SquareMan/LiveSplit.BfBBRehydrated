@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using LiveSplit.ComponentUtil;
 using LiveSplit.Model;
 using UpdateManager;
 
@@ -6,7 +8,12 @@ namespace LiveSplit.BfBBRehydrated.Logic
 {
     public class Autosplitter
     {
-        public const float StartOffset = 138f/60f;
+        public readonly Dictionary<StartingCondition, float> StartOffset = new Dictionary<StartingCondition, float>
+        {
+            {StartingCondition.NewGame, 138f / 60f},
+            {StartingCondition.IndividualLevel, 0f},
+            {StartingCondition.Manual, 0f}
+        };
         
         private LiveSplitState _state;
         private TimerModel _model;
@@ -41,7 +48,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     if (ShouldStart())
                     {
                         _model.Start();
-                        _state.SetGameTime(TimeSpan.FromSeconds(StartOffset));
+                        _state.SetGameTime(TimeSpan.FromSeconds(StartOffset[AutosplitterSettings.StartCondition]));
                     }
                     break;
                 case TimerPhase.Running:
@@ -68,10 +75,9 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
                            _currentMemoryState.Level == Level.IntroCutscene;
                 case StartingCondition.IndividualLevel:
-                    Level targetLevel = IndividualLevelInformation.LevelDictionary[AutosplitterSettings.IndividualLevel].Item1;
-                    return targetLevel == Level.Any
-                        ? _oldMemoryState.Level != _currentMemoryState.Level
-                        : _oldMemoryState.Level != targetLevel && _currentMemoryState.Level == targetLevel;
+                    Tuple<Vector3f,Vector3f> levelGateBounds = IndividualLevelInformation.LevelDictionary[AutosplitterSettings.IndividualLevel].Item1;
+                    return !_oldMemoryState.IsInteracting && _currentMemoryState.IsInteracting &&
+                           MathHelper.Intersects(Memory.PlayerLocation,levelGateBounds.Item1, levelGateBounds.Item2);
                 default:
                     return false;
             }
