@@ -64,10 +64,10 @@ namespace LiveSplit.BfBBRehydrated.Logic
         {
             switch (AutosplitterSettings.StartCondition)
             {
-                case SplitType.GameStart:
+                case StartingCondition.NewGame:
                     return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
                            _currentMemoryState.Level == Level.IntroCutscene;
-                case SplitType.LevelTransition:
+                case StartingCondition.IndividualLevel:
                     Level targetLevel = AutosplitterSettings.StartLevel;
                     return targetLevel == Level.Any
                         ? _oldMemoryState.Level != _currentMemoryState.Level

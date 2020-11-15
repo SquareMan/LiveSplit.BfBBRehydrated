@@ -5,7 +5,6 @@ namespace LiveSplit.BfBBRehydrated.Logic
     public enum SplitType
     {
         [Description("Manual Split")] Manual,
-        [Description("Game Start")] GameStart,
         [Description("Game End")] GameEnd,
         [Description("Load Screen")] LoadScreen,
         [Description("Level Transition")] LevelTransition,

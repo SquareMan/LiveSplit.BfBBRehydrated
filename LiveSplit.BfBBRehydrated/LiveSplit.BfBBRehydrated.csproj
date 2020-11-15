@@ -53,6 +53,7 @@
         <Compile Include="Logic\Memory.cs" />
         <Compile Include="Logic\Sequence.cs" />
         <Compile Include="Logic\Split.cs" />
+        <Compile Include="Logic\StartingCondition.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="UI\BfBBRehydratedComponent.cs" />
         <Compile Include="UI\BfBBRehydratedFactory.cs" />

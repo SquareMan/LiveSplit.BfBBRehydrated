@@ -23,7 +23,7 @@ namespace LiveSplit.BfBBRehydrated.UI
             
             // Cause this form to fill it's container in the settings menu
             Dock = DockStyle.Fill;
-            cboStartType.DataSource = new [] {SplitType.GameStart, SplitType.LevelTransition, SplitType.Manual};
+            cboStartType.DataSource = Enum.GetValues(typeof(StartingCondition));
         }
         
         public XmlNode GetSettings(XmlDocument document)
@@ -56,12 +56,12 @@ namespace LiveSplit.BfBBRehydrated.UI
         public void SetSettings(XmlNode node)
         {
             AutosplitterSettings.ResetPreference = SettingsHelper.ParseEnum<ResetPreference>(node["ResetPreference"]);
-            AutosplitterSettings.StartCondition = SettingsHelper.ParseEnum(node["StartCondition"], SplitType.GameStart);
+            AutosplitterSettings.StartCondition = SettingsHelper.ParseEnum(node["StartCondition"], StartingCondition.NewGame);
             AutosplitterSettings.StartLevel = SettingsHelper.ParseEnum(node["StartLevel"], Level.Any);
 
             // Make UI properly reflect the loaded settings.
             cboStartType.SelectedItem = AutosplitterSettings.StartCondition;
-            if (AutosplitterSettings.StartCondition == SplitType.LevelTransition)
+            if (AutosplitterSettings.StartCondition == StartingCondition.IndividualLevel)
             {
                 cboStartSubType.Visible = true;
                 cboStartSubType.DataSource = Enum.GetValues(typeof(Level));
@@ -355,9 +355,9 @@ namespace LiveSplit.BfBBRehydrated.UI
 
         private void cboStartType_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            AutosplitterSettings.StartCondition = cboStartType.SelectedItem is SplitType type ? type : SplitType.Manual;
+            AutosplitterSettings.StartCondition = cboStartType.SelectedItem is StartingCondition type ? type : StartingCondition.Manual;
 
-            if (AutosplitterSettings.StartCondition == SplitType.LevelTransition)
+            if (AutosplitterSettings.StartCondition == StartingCondition.IndividualLevel)
             {
                 cboStartSubType.Visible = true;
                 cboStartSubType.DataSource = Enum.GetValues(typeof(Level));
