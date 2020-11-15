@@ -14,7 +14,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         
         public static List<Split> Autosplits = new List<Split>();
         public static StartingCondition StartCondition;
-        public static Level StartLevel;
+        public static IndividualLevel IndividualLevel;
         public static ResetPreference ResetPreference = ResetPreference.NewGame;
     }
 }

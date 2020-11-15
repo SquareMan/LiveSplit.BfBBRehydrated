@@ -34,7 +34,7 @@ namespace LiveSplit.BfBBRehydrated.UI
                 Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
             SettingsHelper.CreateSetting(document, xmlSettings, "ResetPreference", AutosplitterSettings.ResetPreference);
             SettingsHelper.CreateSetting(document, xmlSettings, "StartCondition", AutosplitterSettings.StartCondition);
-            SettingsHelper.CreateSetting(document, xmlSettings, "StartLevel", AutosplitterSettings.StartLevel);
+            SettingsHelper.CreateSetting(document, xmlSettings, "IndividualLevel", AutosplitterSettings.IndividualLevel);
 
             XmlElement xmlSplits = document.CreateElement("Splits");
             xmlSettings.AppendChild(xmlSplits);
@@ -57,20 +57,20 @@ namespace LiveSplit.BfBBRehydrated.UI
         {
             AutosplitterSettings.ResetPreference = SettingsHelper.ParseEnum<ResetPreference>(node["ResetPreference"]);
             AutosplitterSettings.StartCondition = SettingsHelper.ParseEnum(node["StartCondition"], StartingCondition.NewGame);
-            AutosplitterSettings.StartLevel = SettingsHelper.ParseEnum(node["StartLevel"], Level.Any);
+            AutosplitterSettings.IndividualLevel = SettingsHelper.ParseEnum(node["IndividualLevel"], IndividualLevel.JellyfishFields);
 
             // Make UI properly reflect the loaded settings.
             cboStartType.SelectedItem = AutosplitterSettings.StartCondition;
             if (AutosplitterSettings.StartCondition == StartingCondition.IndividualLevel)
             {
                 cboStartSubType.Visible = true;
-                cboStartSubType.DataSource = Enum.GetValues(typeof(Level));
+                cboStartSubType.DataSource = Enum.GetValues(typeof(IndividualLevel));
             }
             else
             {
                 cboStartSubType.Visible = false;
             }
-            cboStartSubType.SelectedItem = AutosplitterSettings.StartLevel;
+            cboStartSubType.SelectedItem = AutosplitterSettings.IndividualLevel;
             
             XmlReadSplits(node.SelectNodes(".//Splits/Split"));
             UpdateSplitControls();
@@ -360,18 +360,20 @@ namespace LiveSplit.BfBBRehydrated.UI
             if (AutosplitterSettings.StartCondition == StartingCondition.IndividualLevel)
             {
                 cboStartSubType.Visible = true;
-                cboStartSubType.DataSource = Enum.GetValues(typeof(Level));
+                cboStartSubType.DataSource = Enum.GetValues(typeof(IndividualLevel));
             }
             else
             {
                 cboStartSubType.Visible = false;
-                AutosplitterSettings.StartLevel = Level.Any;
+                AutosplitterSettings.IndividualLevel = IndividualLevel.JellyfishFields;
             }
         }
 
         private void cboStartSubType_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            AutosplitterSettings.StartLevel = cboStartSubType.SelectedItem is Level level ? level : Level.Any;
+            AutosplitterSettings.IndividualLevel = cboStartSubType.SelectedItem is IndividualLevel level
+                ? level
+                : IndividualLevel.JellyfishFields;
         }
     }
 }

@@ -48,6 +48,7 @@
     <ItemGroup>
         <Compile Include="Logic\Autosplitter.cs" />
         <Compile Include="Logic\AutosplitterSettings.cs" />
+        <Compile Include="Logic\IndividualLevel.cs" />
         <Compile Include="Logic\Level.cs" />
         <Compile Include="Logic\MathHelper.cs" />
         <Compile Include="Logic\Memory.cs" />

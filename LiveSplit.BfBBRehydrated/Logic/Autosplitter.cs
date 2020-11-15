@@ -68,7 +68,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
                            _currentMemoryState.Level == Level.IntroCutscene;
                 case StartingCondition.IndividualLevel:
-                    Level targetLevel = AutosplitterSettings.StartLevel;
+                    Level targetLevel = IndividualLevelInformation.LevelDictionary[AutosplitterSettings.IndividualLevel].Item1;
                     return targetLevel == Level.Any
                         ? _oldMemoryState.Level != _currentMemoryState.Level
                         : _oldMemoryState.Level != targetLevel && _currentMemoryState.Level == targetLevel;
