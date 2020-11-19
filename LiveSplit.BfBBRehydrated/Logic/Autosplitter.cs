@@ -96,6 +96,12 @@ namespace LiveSplit.BfBBRehydrated.Logic
                            (_currentMemoryState.Level == Level.ChumBucketBrain || _currentMemoryState.Level == Level.Any);
                 case SplitType.IndividualLevelComplete:
                     var completion = (IndividualLevelCompletion) currentSplit.SubType;
+                    if (AutosplitterSettings.IndividualLevel == IndividualLevel.Poseidome ||
+                        AutosplitterSettings.IndividualLevel == IndividualLevel.IndustrialPark)
+                    {
+                        return _oldMemoryState.SpatulaCount < _currentMemoryState.SpatulaCount;
+                    }
+                    
                     var (_, requiredSpats, requiredSocks) = IndividualLevelInformation.LevelDictionary[AutosplitterSettings.IndividualLevel];
                     var collectedSpats = _currentMemoryState.SpatulaCount - _startingMemoryState.SpatulaCount;
                     var collectedSocks = completion == IndividualLevelCompletion.AllLevelSpatulas
