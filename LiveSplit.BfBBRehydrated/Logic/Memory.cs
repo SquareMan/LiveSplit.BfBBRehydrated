@@ -132,7 +132,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03487038, 0x8, 0x6E0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x3488090, 0x8A8, 0x0);
                     _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03487F90, 0x8, 0x58, 0x98, 0x158, 0x1D0);
-                    ScanIsInteracting("E8 05 ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 A6 ?? ?? ?? ?? 00 00 3E AC 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
+                    ScanIsInteracting("E8 05 ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 ?? ?? ?? ?? ?? 00 00 3E AC 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
                     GameVersion = Version.Revision603296;
                     IsHooked = true;
                     break;
@@ -145,7 +145,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415DB8, 0x8, 0x6E0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03416E10, 0x8A8, 0x0);
                     _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03416D10, 0x8, 0x58, 0x98, 0x158, 0x1D0);
-                    ScanIsInteracting("B8 B7 ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 C4 ?? ?? ?? ?? 00 00 1F A0 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
+                    ScanIsInteracting("B8 B7 ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 ?? ?? ?? ?? ?? 00 00 1F A0 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
                     GameVersion = Version.Revision603442;
                     IsHooked = true;
                     break;
@@ -158,7 +158,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03166BE8, 0x8, 0x7A0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415D10, 0x8A8, 0x0);
                     _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03415C10, 0x8, 0x58, 0x98, 0x158, 0x1D0);
-                    ScanIsInteracting("78 A4 ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 C6 ?? ?? ?? ?? 00 00 1F A0 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
+                    ScanIsInteracting("78 A4 ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 ?? ?? ?? ?? ?? 00 00 1F A0 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
                     GameVersion = Version.Revision603899;
                     IsHooked = true;
                     break;
@@ -171,7 +171,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x317B4B8, 0x8, 0x7A0);
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342AA10, 0x8A8, 0x0);
                     _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342A910, 0x8, 0x58, 0x98, 0x158, 0x1D0);
-                    ScanIsInteracting("48 DD ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 AC ?? ?? ?? ?? 00 00 62 AD 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
+                    ScanIsInteracting("48 DD ?? ?? ?? 7F 00 00 0B 00 28 00 ?? ?? ?? 00 00 ?? ?? ?? ?? ?? 00 00 62 AD 29 00 00 00 00 00 ?? ?? ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? 00 00 00 02 00 00");
                     GameVersion = Version.Revision604909;
                     IsHooked = true;
                     break;
