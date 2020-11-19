@@ -5,6 +5,7 @@
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
         </files>
         <changelog>
+            <change> Support for timing Individual Levels </change>
             <change> UI improvements. </change>
         </changelog>
     </update>
