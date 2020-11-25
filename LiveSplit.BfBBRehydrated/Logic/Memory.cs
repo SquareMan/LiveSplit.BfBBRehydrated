@@ -30,17 +30,17 @@ namespace LiveSplit.BfBBRehydrated.Logic
         
         public static Version GameVersion { get; private set; }
         
-        public static bool IsLoading => IsHooked && _isLoadingDP.Deref<bool>(Game);
-        public static bool IsPaused => IsHooked && _isPausedDP.Deref<bool>(Game);
-        public static bool IsCutsceneActive => IsHooked && _isCutsceneActiveDP.Deref<bool>(Game);
-        public static bool IsInteracting => IsHooked && _isInteractingDP.Deref<bool>(Game);
-        public static int SockCount => IsHooked ? _sockCountDp.Deref<int>(Game) : 0;
-        public static int SpatulaCount => IsHooked ? _spatulaCountDP.Deref<int>(Game) : 0;
+        public static bool IsLoading => IsHooked && _isLoadingDP != null && _isLoadingDP.Deref<bool>(Game);
+        public static bool IsPaused => IsHooked && _isPausedDP != null && _isPausedDP.Deref<bool>(Game);
+        public static bool IsCutsceneActive => IsHooked && _isCutsceneActiveDP != null && _isCutsceneActiveDP.Deref<bool>(Game);
+        public static bool IsInteracting => IsHooked && _isInteractingDP != null && _isInteractingDP.Deref<bool>(Game);
+        public static int SockCount => IsHooked && _sockCountDp != null ? _sockCountDp.Deref<int>(Game) : 0;
+        public static int SpatulaCount => IsHooked && _spatulaCountDP != null ? _spatulaCountDP.Deref<int>(Game) : 0;
         public static Level CurrentLevel
         {
             get
             {
-                if (!IsHooked)
+                if (!IsHooked || _currentLevelDP == null)
                 {
                     return Level.Any;
                 }
@@ -55,7 +55,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
                 return Level.Any;
             }
         }
-        public static Vector3f PlayerLocation => IsHooked ? _playerLocationDP.Deref<Vector3f>(Game) : default;
+        public static Vector3f PlayerLocation => IsHooked && _playerLocationDP != null ? _playerLocationDP.Deref<Vector3f>(Game) : default;
 
         private static DeepPointer _isLoadingDP;
         private static DeepPointer _isPausedDP;
