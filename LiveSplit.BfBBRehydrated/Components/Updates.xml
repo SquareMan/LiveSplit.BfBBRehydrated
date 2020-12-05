@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <updates>
+    <update version="1.4.3">
+        <files>
+            <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change> You should no longer need to start LiveSplit after the game for the IL start to work. </change>
+        </changelog>
+    </update>
     <update version="1.4.2">
         <files>
             <file path="Components/LiveSplit.BfBBRehydrated.dll" status="changed"/>
