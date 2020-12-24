@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using LiveSplit.ComponentUtil;
 
@@ -27,7 +26,8 @@ namespace LiveSplit.BfBBRehydrated.Logic
             Revision603296 = 603296,
             Revision603442 = 603442,
             Revision603899 = 603899,
-            Revision604909 = 604909
+            Revision604909 = 604909,
+            Revision611616 = 611616
         }
         
         public static Version GameVersion { get; private set; }
@@ -71,15 +71,16 @@ namespace LiveSplit.BfBBRehydrated.Logic
         public static Process Game { get; private set; }
         public static bool IsHooked { get; private set; }
 
-        private static Dictionary<Version, string> signatures = new Dictionary<Version, string>
+        private static readonly Dictionary<Version, string> _signatures = new Dictionary<Version, string>()
         {
             {Version.Revision603296, "E805??????7F00000B002800??????0000??????????00003EAC290000000000????????????0000????????????000000020000"},
             {Version.Revision603442, "B8B7??????7F00000B002800??????0000??????????00001FA0290000000000????????????0000????????????000000020000"},
             {Version.Revision603899, "78A4??????7F00000B002800??????0000??????????00001FA0290000000000????????????0000????????????000000020000"},
-            {Version.Revision604909, "48DD??????7F00000B002800??????0000??????????000062AD290000000000????????????0000????????????000000020000"}
+            {Version.Revision604909, "48DD??????7F00000B002800??????0000??????????000062AD290000000000????????????0000????????????000000020000"},
+            {Version.Revision611616, "A838??????7F00000B002800??????0000A8????????0000359F2C0000000000????????????0000????????????000000020000"}
         };
         
-        private static Task scanTask;
+        private static Task _scanTask;
         private const double HookAttemptDelay = 1.0;
         private static DateTime _nextHookAttemptTime;
 
@@ -89,7 +90,7 @@ namespace LiveSplit.BfBBRehydrated.Logic
         /// <returns></returns>
         public static MemoryState GetState()
         {
-            return new MemoryState
+            return new MemoryState()
             {
                 IsLoading = IsLoading,
                 IsPaused = IsPaused,
@@ -109,13 +110,12 @@ namespace LiveSplit.BfBBRehydrated.Logic
             if (Game != null)
             {
                 // Delay Scan for the SoundCue that indicates interaction until the first loading screen to ensure it exists.
-                if (_isInteractingDP == null && scanTask == null && IsLoading)
+                if (_isInteractingDP == null && _scanTask == null && IsLoading)
                 {
-                    var b = IsLoading;
-                    scanTask = Task.Run(() =>
+                    _scanTask = Task.Run(() =>
                     {
-                        ScanIsInteracting(signatures[GameVersion]);
-                        scanTask = null;
+                        ScanIsInteracting(_signatures[GameVersion]);
+                        _scanTask = null;
                     });
                 }
                 
@@ -191,6 +191,19 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342AA10, 0x8A8, 0x0);
                     _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0342A910, 0x8, 0x58, 0x98, 0x158, 0x1D0);
                     GameVersion = Version.Revision604909;
+                    IsHooked = true;
+                    break;
+                case 58404864:
+
+                    _isLoadingDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x03321F10, 0x20, 0x170);
+                    _isPausedDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0341E6E0, 0x8A0);
+                    _isCutsceneActiveDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0341E6E0, 0xDC0, 0x618, 0x38);
+                    _sockCountDp = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0341E6E0, 0xDC0, 0x7AC);
+                    _spatulaCountDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0341E6E0, 0xDC0, 0x7B0);
+                    _currentLevelDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0341E6E0, 0x8A8, 0x0);
+                    _playerLocationDP = new DeepPointer("Pineapple-Win64-Shipping.exe", 0x0341E6E0, 0xDC0, 0x38, 0x0,
+                        0x30, 0x270, 0x158, 0x1D0);
+                    GameVersion = Version.Revision611616;
                     IsHooked = true;
                     break;
                 default:
