@@ -8,21 +8,23 @@ namespace LiveSplit.BfBBRehydrated.Logic
 {
     public class Autosplitter
     {
-        public readonly Dictionary<StartingCondition, float> StartOffset = new Dictionary<StartingCondition, float>
+        //Static to preserve state if component is destroyed and recreated midrun
+        private static Memory.MemoryState _startingMemoryState;
+        private static Memory.MemoryState _oldMemoryState;
+        private static Memory.MemoryState _currentMemoryState;
+
+        public static readonly Dictionary<StartingCondition, float> StartOffset = new Dictionary<StartingCondition, float>
         {
             {StartingCondition.NewGame, 138f / 60f},
             {StartingCondition.IndividualLevel, 0f},
             {StartingCondition.Manual, 0f}
         };
-        
+
+        private static readonly TimeSpan _splitDelay = TimeSpan.FromSeconds(0.1f);
+
         private LiveSplitState _state;
         private TimerModel _model;
 
-        private Memory.MemoryState _startingMemoryState;
-        private Memory.MemoryState _oldMemoryState;
-        private Memory.MemoryState _currentMemoryState;
-        
-        private static readonly TimeSpan _splitDelay = TimeSpan.FromSeconds(0.1f);
         private DateTime _timeUntilNextSplit;
 
         public Autosplitter(LiveSplitState state)

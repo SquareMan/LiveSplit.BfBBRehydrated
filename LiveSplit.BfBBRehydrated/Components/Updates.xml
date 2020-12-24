@@ -6,6 +6,7 @@
         </files>
         <changelog>
             <change> Support for revision 611616 </change>
+            <change> Minor bugfixes </change>
         </changelog>
     </update>
     <update version="1.4.3">
