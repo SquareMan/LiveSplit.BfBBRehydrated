@@ -6,6 +6,7 @@
         </files>
         <changelog>
             <change> Support for revision 611616 </change>
+            <change> Realtime will now be accurate and account for the time spent from first input to when the timer actually starts. </change>
             <change> Minor bugfixes </change>
         </changelog>
     </update>

@@ -8,11 +8,6 @@ namespace LiveSplit.BfBBRehydrated.Logic
 {
     public class Autosplitter
     {
-        //Static to preserve state if component is destroyed and recreated midrun
-        private static Memory.MemoryState _startingMemoryState;
-        private static Memory.MemoryState _oldMemoryState;
-        private static Memory.MemoryState _currentMemoryState;
-
         public static readonly Dictionary<StartingCondition, float> StartOffset = new Dictionary<StartingCondition, float>
         {
             {StartingCondition.NewGame, 138f / 60f},
@@ -20,11 +15,17 @@ namespace LiveSplit.BfBBRehydrated.Logic
             {StartingCondition.Manual, 0f}
         };
 
+        //Static to preserve state if component is destroyed and recreated midrun
+        private static Memory.MemoryState _startingMemoryState;
+        private static Memory.MemoryState _oldMemoryState;
+        private static Memory.MemoryState _currentMemoryState;
+
         private static readonly TimeSpan _splitDelay = TimeSpan.FromSeconds(0.1f);
 
         private LiveSplitState _state;
         private TimerModel _model;
 
+        private DateTime _firstLoadStartTime;
         private DateTime _timeUntilNextSplit;
 
         public Autosplitter(LiveSplitState state)
@@ -51,7 +52,12 @@ namespace LiveSplit.BfBBRehydrated.Logic
                     if (ShouldStart())
                     {
                         _startingMemoryState = _currentMemoryState;
+                        
+                        // Temporarily adjust the start offset for real-time accuracy.
+                        var userOffset = _state.Run.Offset;
+                        _state.Run.Offset = DateTime.Now - _firstLoadStartTime + TimeSpan.FromSeconds(StartOffset[AutosplitterSettings.StartCondition]);
                         _model.Start();
+                        _state.Run.Offset = userOffset;
                         _state.SetGameTime(TimeSpan.FromSeconds(StartOffset[AutosplitterSettings.StartCondition]));
                     }
                     break;
@@ -76,6 +82,13 @@ namespace LiveSplit.BfBBRehydrated.Logic
             switch (AutosplitterSettings.StartCondition)
             {
                 case StartingCondition.NewGame:
+                    if (!_oldMemoryState.IsLoading && _currentMemoryState.IsLoading &&
+                        _currentMemoryState.Level == Level.IntroCutscene)
+                    {
+                        _firstLoadStartTime = DateTime.Now;
+                        return false;
+                    }
+
                     return _oldMemoryState.IsLoading && !_currentMemoryState.IsLoading &&
                            _currentMemoryState.Level == Level.IntroCutscene;
                 case StartingCondition.IndividualLevel:
